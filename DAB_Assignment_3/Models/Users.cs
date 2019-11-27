@@ -1,23 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace DAB_Assignment_3.Models
 {
-    class Users
+    public class Users
     {
-        public int UsersId { get; set; }
+        public Users()
+        {
+            UserCircles = new List<string>();
+            Following = new List<string>();
+            FollowedBy = new List<string>();
+            BlockedUsers = new List<string>();
+            BlocksUsers = new List<string>();
+            UserCircles.Add("");
+        }
 
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string UsersId { get; set; }
+
+        [BsonElement("Name")] 
         public string Name { get; set; }
 
-        public string Gender { get; set; }
-
+        [BsonElement("Age")]
         public int Age { get; set; }
 
-        public List<Users> Followers  { get; set; }
+        [BsonElement("Gender")] 
+        public string Gender { get; set; }
 
-        public List<Users> Following { get; set; }
+        [BsonElement("UserCircles")] 
+        public List<string> UserCircles { get; set; }
 
-        public List<Circle> UserCircle { get; set; }
+        [BsonElement("Following")]
+        public List<string> Following { get; set; }
+
+        [BsonElement("FollowedBy")]
+        public List<string> FollowedBy { get; set; }
+
+        [BsonElement("BlocksUsers")]
+        public List<string> BlocksUsers { get; set; }
+
+        [BsonElement("BlockedByUsers")]
+        public List<string> BlockedUsers  { get; set; }
     }
 }
