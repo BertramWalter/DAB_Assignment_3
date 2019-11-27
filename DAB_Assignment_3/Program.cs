@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using DAB_Assignment_3.Models;
+using DAB_Assignment_3.Services;
 
 namespace DAB_Assignment_3
 {
@@ -6,7 +9,35 @@ namespace DAB_Assignment_3
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var circleServices = new CircleServices();
+            var commentServices = new CommentServices();
+            var postServices = new PostServices();
+            var usersServices = new UsersServices();
+
+            //List<Circle> circleList = circleServices.Get();
+            //List<Comment> commentList = circleServices.Get();
+            //List<Post> postList = circleServices.Get();
+            //List<Users> usersList = circleServices.Get();
+
+            //foreach (var c in circleList)
+            //{
+            //    Console.WriteLine(c);
+            //}
+
+            //foreach (var co in commentList)
+            //{
+            //    Console.WriteLine(co);
+            //}
+
+            //foreach (var p in postList)
+            //{
+            //    Console.WriteLine(p);
+            //}
+
+            //foreach (var u in usersList)
+            //{
+            //    Console.WriteLine(u);
+            //}
         }
     }
 }

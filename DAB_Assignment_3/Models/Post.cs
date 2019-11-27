@@ -6,7 +6,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace DAB_Assignment_3.Models
 {
-    public class Post
+    public abstract class Post
     {
         public Post()
         {
@@ -19,18 +19,14 @@ namespace DAB_Assignment_3.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string PostId { get; set; }
 
-        [BsonElement("ContentType")] 
-        public string ContentType { get; set; }
-
-        [BsonElement("Content")]
-        public string Content { get; set; }
-        //Dictionary?????? Binding Type and content together?
-
         [BsonElement("PostedInCircle")]
         public string PostedInCircle { get; set; }
 
         [BsonElement("AuthorOfPost")]
         public string AuthorOfPost { get; set; }
+
+        [BsonElement("AuthorId")]
+        public string AuthorId { get; set; }
 
         [BsonElement("PostCreationTime")]
         public DateTime PostCreationTime { get; set; }
