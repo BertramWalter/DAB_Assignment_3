@@ -9,7 +9,7 @@ namespace DAB_Assignment_3.Services
     public class PostServices
     {
         private IMongoCollection<Post> _posts;
-        private IMongoCollection<Users> _users;
+        private IMongoCollection<User> _users;
         private IMongoCollection<Circle> _circle;
 
         public PostServices()
@@ -18,6 +18,8 @@ namespace DAB_Assignment_3.Services
             var database = client.GetDatabase("SocialNetworkDb");
 
             _posts = database.GetCollection<Post>("Posts");
+            _users = database.GetCollection<User>("Users");
+            _circle = database.GetCollection<Circle>("Circles");
         }
 
         public void CreatePost(Post post)

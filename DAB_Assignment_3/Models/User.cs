@@ -6,9 +6,9 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace DAB_Assignment_3.Models
 {
-    public class Users
+    public class User
     {
-        public Users()
+        public User()
         {
             UserCircles = new List<string>();
             Following = new List<string>();
@@ -20,7 +20,7 @@ namespace DAB_Assignment_3.Models
 
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string UsersId { get; set; }
+        public string UserId { get; set; }
 
         [BsonElement("Name")] 
         public string Name { get; set; }
