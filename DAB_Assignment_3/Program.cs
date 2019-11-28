@@ -12,7 +12,7 @@ namespace DAB_Assignment_3
             var circleServices = new CircleServices();
             var commentServices = new CommentServices();
             var postServices = new PostServices();
-            var usersServices = new UsersServices();
+            var usersServices = new UserServices();
 
             //List<Circle> circleList = circleServices.Get();
             //List<Comment> commentList = circleServices.Get();
