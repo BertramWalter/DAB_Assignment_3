@@ -27,6 +27,5 @@ namespace DAB_Assignment_3.Models
 
         [BsonElement("OwnerId")]
         public string OwnerId { get; set; }
-
     }
 }
