@@ -36,7 +36,8 @@ namespace DAB_Assignment_3
                         postServices.CreatePost();
                         break;
                     case "4":
-                        commentServices.CreateComment(new Comment(), UserInput("Input post id:"),DateTime.Now);
+                        commentServices.CreateComment(UserInput("Input post id: "), DateTime.Now.ToString(),
+                            UserInput("Input comment: "));
                         break;
                     default:
                         Console.WriteLine("Wrong input");

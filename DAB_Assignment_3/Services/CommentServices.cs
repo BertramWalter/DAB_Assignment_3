@@ -37,7 +37,7 @@ namespace DAB_Assignment_3.Services
              //   user = _users;
 
 
-             DateTime Date = datetime;
+             //DateTime Date = datetime;
             //comment.DateTime = DateTime.Parse(Date);
 
             Console.WriteLine("Type your comment: ");
