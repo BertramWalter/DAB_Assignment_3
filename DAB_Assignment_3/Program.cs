@@ -22,12 +22,24 @@ namespace DAB_Assignment_3
             while (true)
             {
                 DisplayMainChoices();
-                var input = UserInput();
+                var input = UserInput("Input Selection");
 
                 switch (input)
                 {
                     case "1":
+                        ListAllUsers(userServices);
+                        break;
+                    case "2":
                         UserMenu(userServices);
+                        break;
+                    case "3":
+                        postServices.CreatePost();
+                        break;
+                    case "4":
+                        commentServices.CreateComment(new Comment(), UserInput("Input post id:"),DateTime.Now);
+                        break;
+                    default:
+                        Console.WriteLine("Wrong input");
                         break;
                 }
 
@@ -69,15 +81,10 @@ namespace DAB_Assignment_3
         private static void UserMenu(UserServices userServices)
         {
             List<User> users = userServices.Get();
-            bool userMenu = true;
 
-            while (userMenu)
+            while (true)
             {
-                ListAllUsers(users);
-
-                Console.WriteLine("Input user id or 'esc' to go back");
-
-                var userId = UserInput();
+                var userId = UserInput("Input user id or 'esc' to go back");
                 if (userId == "esc")
                     return;
 
@@ -90,27 +97,27 @@ namespace DAB_Assignment_3
                     Console.WriteLine("Choices:");
                     Console.WriteLine("1: Get user feed");
                     Console.WriteLine("2: Get Wall as guest");
-                    Console.WriteLine("3: Create a post");
-                    var selection = UserInput();
+                    var selection = UserInput("Inout Selection");
                     switch (selection)
                     {
                         case "1":
                             userServices.GetFeed(userId);
                             break;
                         case "2":
-                            userServices.
+                            userServices.GetWall(userId,UserInput("Input guest id:"));
+                            break;
+                        default:
+                            Console.WriteLine("Wrong selection try again");
+                            break;
                     }
                 }
             }
         }
 
-        private static void UserSelectedMenu()
-        {
 
-        }
-
-        private static void ListAllUsers(List<User> users)
+        private static void ListAllUsers(UserServices userServices)
         {
+            List<User> users = userServices.Get();
             foreach (var user in users)
             {
                 Console.WriteLine($"Name: {user.Name} Id: {user.Id}");
@@ -127,10 +134,13 @@ namespace DAB_Assignment_3
             Console.WriteLine("Here are your choices");
             Console.WriteLine("1: List all Users");
             Console.WriteLine("2: Select user by id");
+            Console.WriteLine("3: Create Post");
+            Console.WriteLine("4: Create Comment");
         }
 
-        private static string UserInput()
+        private static string UserInput(string outputToUser)
         {
+            Console.WriteLine(outputToUser);
             return Console.ReadLine();
         }
     }

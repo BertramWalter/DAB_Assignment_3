@@ -25,7 +25,7 @@ namespace DAB_Assignment_3.Services
             _circle = database.GetCollection<Circle>("Circles");
         }
 
-        public void CreateComment(Comment comment, string post_id, string datetime)
+        public void CreateComment(Comment comment, string post_id, DateTime datetime)
         {
             //if no posts available
             var post = _post.Find(x => x.PostId == post_id ).FirstOrDefault();
@@ -37,7 +37,7 @@ namespace DAB_Assignment_3.Services
              //   user = _users;
 
 
-                DateTime Date = DateTime.Now;
+             DateTime Date = datetime;
             //comment.DateTime = DateTime.Parse(Date);
 
             Console.WriteLine("Type your comment: ");
