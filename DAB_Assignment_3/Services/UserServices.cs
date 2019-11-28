@@ -72,6 +72,36 @@ namespace DAB_Assignment_3.Services
             Console.WriteLine($"User {userWhoBlocks.Name} has unblocked user with ID: {blockedUserId}");
         }
 
+        public void Follow(string userid, string userToFollow)
+        {
+            var user = _users.Find(user =>
+                user.Id == userid).FirstOrDefault();
+
+            if (user == null)
+            {
+                Console.WriteLine("User doesn't exist");
+                return;
+            }
+
+            user.FollowId.Add(userToFollow);
+        }
+
+        public void UnFollow(string userid, string userToUnfollow)
+        {
+            var user = _users.Find(user =>
+                user.Id == userid &&
+                user.FollowId.Contains(userToUnfollow)).FirstOrDefault();
+
+            if (user == null)
+            {
+                Console.WriteLine($"UserID {userid} doesn't exist or doesn't follow ID: {userToUnfollow}");
+                return;
+            }
+
+            user.FollowId.Remove(userToUnfollow);
+
+            Console.WriteLine($"User {user.Name} has unfollowed user with ID: {userToUnfollow}");
+        }
         //Find all users
         public List<User> Get() =>
             _users.Find(user => true).ToList();

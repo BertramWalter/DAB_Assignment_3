@@ -10,9 +10,11 @@ namespace DAB_Assignment_3.Models
     {
         public User(string name, int age, string gender)
         {
-            FollowId = new List<string>();
-            BlockId = new List<string>();
-            UserPostsId = new List<string>();
+            //FollowId = new List<string>();
+            //BlockId = new List<string>();
+            //UserPostsId = new List<string>();
+            //CircleId = new List<string>();
+            //CircleName = new List<string>();
 
             Name = name;
             Age = age;
@@ -42,10 +44,8 @@ namespace DAB_Assignment_3.Models
         [BsonElement("CircleId")]
         public List<string> CircleId { get; set; }
 
-        [BsonElement("CircleId")]
+        [BsonElement("CircleName")]
         public List<string> CircleName { get; set; }
-
-
 
         [BsonElement("UserPostsId")]
         public List<string> UserPostsId { get; set; }
