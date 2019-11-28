@@ -12,7 +12,7 @@ namespace DAB_Assignment_3.Models
         {
             UserIds = new List<string>();
             Name = name;
-            OwnerId = user.UserId;
+            OwnerId = user.Id;
         }
 
         [BsonId]
