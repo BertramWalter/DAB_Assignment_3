@@ -22,6 +22,10 @@ namespace DAB_Assignment_3.Services
             _posts = database.GetCollection<Post>("Posts");
         }
 
+        //Find all users
+        public List<User> Get() =>
+            _users.Find(user => true).ToList();
+
         //Create a user
         public void CreateUser()
         {
@@ -102,9 +106,6 @@ namespace DAB_Assignment_3.Services
 
             Console.WriteLine($"User {user.Name} has unfollowed user with ID: {userToUnfollow}");
         }
-        //Find all users
-        public List<User> Get() =>
-            _users.Find(user => true).ToList();
 
         //Find by UserId (Won't be good - dont know the Id's?)
         public User Get(string userid) =>

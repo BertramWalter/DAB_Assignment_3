@@ -9,15 +9,16 @@ namespace DAB_Assignment_3
     {
         static void Main(string[] args)
         {
-            //var circleServices = new CircleServices();
-            //var commentServices = new CommentServices();
-            //var postServices = new PostServices();
-            //var usersServices = new UserServices();
+            var circleServices = new CircleServices();
+            var commentServices = new CommentServices();
+            var postServices = new PostServices();
+            var userServices = new UserServices();
 
-            //List<Circle> circleList = circleServices.Get();
-            //List<Comment> commentList = circleServices.Get();
-            //List<Post> postList = circleServices.Get();
-            //List<Users> usersList = circleServices.Get();
+            //List<Circle> circleList// = circleServices.Get();
+            //List<Comment> commentList = commentServices.Get();
+            //List<Post> postList = postServices.Get();
+
+            //List<User> usersList = userServices.Get();
 
             //foreach (var c in circleList)
             //{
@@ -38,10 +39,24 @@ namespace DAB_Assignment_3
             //{
             //    Console.WriteLine(u);
             //}
+ 
 
-           
+            Console.WriteLine("Welcome to SocialNetwork\n\nUse the following commands:");
+            Console.WriteLine("A: Add user\nB: Make post\nC: Make a circle\nD: Comment on post");
 
+            ConsoleKeyInfo k = Console.ReadKey(true);
 
+            switch (k.Key)
+            {
+                case ConsoleKey.A:
+                    userServices.CreateUser();
+                    break;
+                case ConsoleKey.B:
+                    postServices.CreatePost();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
