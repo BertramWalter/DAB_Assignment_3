@@ -18,5 +18,8 @@ namespace DAB_Assignment_3.Models
 
         [BsonElement("CommentString")]
         public string CommentString { get; set; }
+
+        [BsonElement("DateTime")] 
+        public string DateTime { get; set; }
     }
 }
