@@ -9,10 +9,10 @@ namespace DAB_Assignment_3
     {
         static void Main(string[] args)
         {
-            var circleServices = new CircleServices();
-            var commentServices = new CommentServices();
-            var postServices = new PostServices();
-            var usersServices = new UserServices();
+            //var circleServices = new CircleServices();
+            //var commentServices = new CommentServices();
+            //var postServices = new PostServices();
+            //var usersServices = new UserServices();
 
             //List<Circle> circleList = circleServices.Get();
             //List<Comment> commentList = circleServices.Get();
@@ -38,6 +38,24 @@ namespace DAB_Assignment_3
             //{
             //    Console.WriteLine(u);
             //}
+
+            ConsoleKeyInfo key;
+            do
+            {
+                Console.Write("PRESS 'Y' for YES or 'N' for NO: ");
+                key = Console.ReadKey(true);
+                if (key.Key == ConsoleKey.Y)
+                {
+                    Console.WriteLine("YYY");
+                }
+                else if (key.Key == ConsoleKey.N)
+                {
+                    Console.WriteLine("NNN");
+                }
+            } while (key.Key != ConsoleKey.Y && key.Key != ConsoleKey.N);
+
+
+
         }
     }
 }
