@@ -16,7 +16,6 @@ namespace DAB_Assignment_3.Models
         }
 
         [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
         public string CircleId { get; set; }
 
         [BsonElement("NameOfCircle")]
