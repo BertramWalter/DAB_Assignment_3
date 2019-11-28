@@ -27,17 +27,17 @@ namespace DAB_Assignment_3.Services
         public void CreateTextPost(string owner_id, string content, string circles)
         {
             Console.WriteLine("Create new post:");
-            Console.WriteLine()
+            Console.WriteLine();
             //TextPost post = new TextPost();
             //Check if user exists in database
-            var user = _users.Find(x => x.UserId == owner_id).FirstOrDefault();
-            if (user == null)
-            {
-                Console.WriteLine("Invalid id");
-            }
+            ////var user = _users.Find(x => x.UserId == owner_id).FirstOrDefault();
+            //if (user == null)
+            //{
+            //    Console.WriteLine("Invalid id");
+            //}
 
-            post.AuthorName = user.Name;
-            post.AuthorId = user.UserId;
+            //post.AuthorName = user.Name;
+            //post.AuthorId = user.UserId;
 
 
 
