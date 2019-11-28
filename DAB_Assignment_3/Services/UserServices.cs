@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using DAB_Assignment_3.Models;
+using MongoDB.Bson.Serialization.IdGenerators;
 using MongoDB.Driver;
 
 namespace DAB_Assignment_3.Services
@@ -29,22 +30,45 @@ namespace DAB_Assignment_3.Services
             return user;
         }
 
-        //Find all?????????????????
+        //Find all users
         public List<User> Get() =>
             _users.Find(user => true).ToList();
 
         //Find by UserId (Won't be good - dont know the Id's?)
-        public User Get(string id) =>
-            _users.Find<User>(user => user.Id == id).FirstOrDefault();
+        public User Get(string userid) =>
+            _users.Find<User>(user => user.Id == userid).FirstOrDefault();
 
-        //public List<Post> GetFeed()
+        //Get feed from er specific user
+        public List<Post> GetFeed(string userid)
+        {
+            var user = _users.Find(findUser => findUser.Id == userid).FirstOrDefault();
+            
+            //Find user from whom, you want to see feed
+            if (user == null)
+            { 
+                throw new System.ArgumentException("User ID non-existent");
+            }
+
+            var userFeed = _posts.Find(post => 
+                    //Checking if post is private or public, if the use is blocked
+                    //or not - and if the user follows the author of post
+                    (post.IsPublic == false &&
+                    post.BlockedAllowedUserId.Contains(userid) &&
+                    user.FollowId.Contains(post.AuthorId)) ||
+                    
+                    //If the post is public - we're checking if the user
+                    //is in the "blockedAllowedUserId list (if the user is, post wont show in feed)
+                    (post.IsPublic &&
+                    !post.BlockedAllowedUserId.Contains(userid) &&
+                    user.FollowId.Contains(post.AuthorId)
+                    ))
+                .SortByDescending(post => post.PostId).Limit(5).ToList();
+            return userFeed;
+        }
+
+        //public List<Post> GetWall(string userid, string guestId)
         //{
-        //    //Find user from who you want to see feed
-        //    var user = _users.Find(user)
 
-        //    var posts = _posts.Find(post =>
-        //        post.AuthorId == User.)
-        //    return posts;//_posts.Find(post => true).ToList();
         //}
     }
 }
