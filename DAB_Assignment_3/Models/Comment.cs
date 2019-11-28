@@ -7,6 +7,16 @@ namespace DAB_Assignment_3.Models
 {
     public class Comment
     {
+        public Comment(string postid, string authorid, string authorname, string commentstring, DateTime DateTime)
+        {
+            PostId = postid;
+            AuthorId = authorid;
+            AuthorName = authorname;
+            CommentString = commentstring;
+            DateTime = DateTime;
+
+        }
+
         [BsonElement("PostId")]
         public string PostId { get; set; }
 
