@@ -38,6 +38,15 @@ namespace DAB_Assignment_3.Models
         [BsonElement("BlockId")]
         public List<string> BlockId { get; set; }
 
+        //Bruger vi ID til noget?
+        [BsonElement("CircleId")]
+        public List<string> CircleId { get; set; }
+
+        [BsonElement("CircleId")]
+        public List<string> CircleName { get; set; }
+
+
+
         [BsonElement("UserPostsId")]
         public List<string> UserPostsId { get; set; }
     }
