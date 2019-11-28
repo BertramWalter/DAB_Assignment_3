@@ -8,9 +8,11 @@ namespace DAB_Assignment_3.Models
 {
     public class Circle
     {
-        public Circle()
+        public Circle(string name, User user)
         {
-           // UsersInCircle = new List<string>();
+            UserIds = new List<string>();
+            Name = name;
+            OwnerId = user.UserId;
         }
 
         [BsonId]
@@ -21,7 +23,10 @@ namespace DAB_Assignment_3.Models
         public string Name { get; set; }
 
         [BsonElement("UserId")]
-        public List<string> UserId { get; set; }
+        public List<string> UserIds { get; set; }
+
+        [BsonElement("OwnerId")]
+        public string OwnerId { get; set; }
 
     }
 }
