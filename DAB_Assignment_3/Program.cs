@@ -39,21 +39,7 @@ namespace DAB_Assignment_3
             //    Console.WriteLine(u);
             //}
 
-            ConsoleKeyInfo key;
-            do
-            {
-                Console.Write("PRESS 'Y' for YES or 'N' for NO: ");
-                key = Console.ReadKey(true);
-                if (key.Key == ConsoleKey.Y)
-                {
-                    Console.WriteLine("YYY");
-                }
-                else if (key.Key == ConsoleKey.N)
-                {
-                    Console.WriteLine("NNN");
-                }
-            } while (key.Key != ConsoleKey.Y && key.Key != ConsoleKey.N);
-
+           
 
 
         }
