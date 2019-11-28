@@ -10,7 +10,7 @@ namespace DAB_Assignment_3.Models
     {
         public Circle()
         {
-            UsersInCircle = new List<string>();
+           // UsersInCircle = new List<string>();
         }
 
         [BsonId]
