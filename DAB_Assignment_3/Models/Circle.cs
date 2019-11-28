@@ -8,11 +8,11 @@ namespace DAB_Assignment_3.Models
 {
     public class Circle
     {
-        public Circle(string name, User user)
+        public Circle(string name, string ownerId)
         {
             UserIds = new List<string>();
             Name = name;
-            OwnerId = user.UserId;
+            OwnerId = ownerId;
         }
 
         [BsonId]
