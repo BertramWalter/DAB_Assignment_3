@@ -27,7 +27,7 @@ namespace DAB_Assignment_3.Models
         public DateTime DateTime { get; set; }
 
         [BsonElement("IsPublic")]
-        public List<string> IsPublic { get; set; }
+        public bool IsPublic { get; set; }
 
         [BsonElement("BlockedAllowedUserId")]
         public List<string> BlockedAllowedUserId { get; set; }
