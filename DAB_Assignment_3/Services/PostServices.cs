@@ -62,9 +62,29 @@ namespace DAB_Assignment_3.Services
             }
         }
 
+        //This is some test functions, that does not work the way I want it.
+
+        //public void someFunc()
+        //{
+        //    Post post = someReturnFunc();
+        //}
+
+        //public DataPost someReturnFunc()
+        //{
+        //    DataPost post = new DataPost();
+        //    return post;
+        //}
+
+        //public Post someOtherReturnFunc()
+        //{
+        //    TextPost post = new TextPost();
+        //    return post;
+        //}
+
 
         private void CreateDataPost(User user)
         {
+
             DataPost post = new DataPost();
             post.AuthorId = user.Id;
             post.AuthorName = user.Name;
@@ -108,7 +128,6 @@ namespace DAB_Assignment_3.Services
             else
             {
                 Console.WriteLine("Which circle(s) do you want to post to?\nHere is your list of circles: ");
-                int i = 0;
                 foreach (var id in user.CircleId)
                 {
                     var c = _circles.Find<Circle>(c => c.CircleId == id).FirstOrDefault();
@@ -194,7 +213,6 @@ namespace DAB_Assignment_3.Services
             else
             {
                 Console.WriteLine("Which circle(s) do you want to post to?\nHere is your list of circles: ");
-                int i = 0;
                 foreach (var id in user.CircleId)
                 {
                     var c = _circles.Find<Circle>(c => c.CircleId == id).FirstOrDefault();

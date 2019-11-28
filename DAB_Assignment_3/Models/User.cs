@@ -42,7 +42,7 @@ namespace DAB_Assignment_3.Models
         [BsonElement("CircleId")]
         public List<string> CircleId { get; set; }
 
-        [BsonElement("CircleId")]
+        [BsonElement("CircleName")]
         public List<string> CircleName { get; set; }
 
 
