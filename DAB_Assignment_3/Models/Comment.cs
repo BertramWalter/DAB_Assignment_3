@@ -20,6 +20,6 @@ namespace DAB_Assignment_3.Models
         public string CommentString { get; set; }
 
         [BsonElement("DateTime")] 
-        public string DateTime { get; set; }
+        public DateTime DateTime { get; set; }
     }
 }
