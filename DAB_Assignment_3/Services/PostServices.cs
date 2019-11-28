@@ -164,7 +164,7 @@ namespace DAB_Assignment_3.Services
                 Console.WriteLine("Private post added to circles");
             }
 
-            _textPosts.InsertOne(post);
+            _dataPosts.InsertOne(post);
         }
 
         public void CreateTextPost(User user)
