@@ -10,17 +10,13 @@ namespace DAB_Assignment_3.Models
     {
         public User()
         {
-            UserCircles = new List<string>();
-            Following = new List<string>();
-            FollowedBy = new List<string>();
-            BlockedUsers = new List<string>();
-            BlocksUsers = new List<string>();
-            UserCircles.Add("");
+            FollowId = new List<string>();
+            BlockId = new List<string>();
         }
 
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string UserId { get; set; }
+        public string Id { get; set; }
 
         [BsonElement("Name")] 
         public string Name { get; set; }
@@ -31,19 +27,10 @@ namespace DAB_Assignment_3.Models
         [BsonElement("Gender")] 
         public string Gender { get; set; }
 
-        [BsonElement("UserCircles")] 
-        public List<string> UserCircles { get; set; }
+        [BsonElement("FollowId")]
+        public List<string> FollowId { get; set; }
 
-        [BsonElement("Following")]
-        public List<string> Following { get; set; }
-
-        [BsonElement("FollowedBy")]
-        public List<string> FollowedBy { get; set; }
-
-        [BsonElement("BlocksUsers")]
-        public List<string> BlocksUsers { get; set; }
-
-        [BsonElement("BlockedByUsers")]
-        public List<string> BlockedUsers  { get; set; }
+        [BsonElement("BlockId")]
+        public List<string> BlockId { get; set; }
     }
 }
