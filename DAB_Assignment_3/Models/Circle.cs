@@ -20,8 +20,8 @@ namespace DAB_Assignment_3.Models
         [BsonElement("NameOfCircle")]
         public string Name { get; set; }
 
-        [BsonElement("UsersInCircle")]
-        public List<string> UsersInCircle { get; set; }
+        [BsonElement("UserId")]
+        public List<string> UserId { get; set; }
 
     }
 }
