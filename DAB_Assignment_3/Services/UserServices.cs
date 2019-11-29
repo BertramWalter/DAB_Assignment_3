@@ -122,46 +122,59 @@ namespace DAB_Assignment_3.Services
                return;
             }
 
-            ////----------------------Arbejder med dette-----------------------//
-            //////TEST HER
-            //List<string> following = user.FollowId;
-            ////Can I search posts from the "following" list?
-            ////Get all id from the followed users - now see posts from these?
-            ////---------------------------------------------------------------//
+            if (user.FollowId != null)
+            {
+                foreach (var f in user.FollowId)
+                {
+                    var followed = _users.Find(user =>
+                        user.Id == f).FirstOrDefault();
 
-            try
-            {
+                    if (followed.BlockId.Contains(userid))
+                    {
+                        Console.WriteLine($"User {user.Name} is blocked by user id: {f}");
+                        continue;
+                    }
+                    foreach (var p in followed.UserPostsId)
+                    {
+                        var followedPost = _posts.Find(post =>
+                            post.PostId == p);
 
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("User has no feed to see");
-                throw;
-            }
-            var userFeed = _posts.Find(post => 
-                //Checking if post is private or public, if the use is blocked
-                //or not - and if the user follows the author of post
-                (post.IsPublic == false &&
-                post.BlockedAllowedUserId.Contains(userid) &&
-                user.FollowId.Contains(post.AuthorId)) ||
-                
-                //If the post is public - we're checking if the user
-                //is in the "blockedAllowedUserId list (if the user is, post wont show in feed)
-                (post.IsPublic &&
-                !post.BlockedAllowedUserId.Contains(userid) &&
-                user.FollowId.Contains(post.AuthorId)
-                ))
-                .SortByDescending(post => post.PostId).Limit(5).ToList();
+                        Console.WriteLine($"{followedPost}");
+                    }
 
-            if (userFeed == null)
-            {
-                Console.WriteLine("User has no feed to see");
-                return;
+                }
             }
-            foreach (var f in userFeed)
+            else
             {
-                Console.WriteLine($"{f}");
+                Console.WriteLine($"User {user.Name} is not following anyone");
             }
+
+            ////////////////////Spørg Henrik-lære om dette er smartere////////////////////////////
+            //var userFeed = _posts.Find(post =>
+            //        //Checking if post is private or public, if the use is blocked
+            //        //or not - and if the user follows the author of post
+            //        (post.IsPublic == false &&
+            //         post.BlockedAllowedUserId.Contains(userid) &&
+            //         user.FollowId.Contains(post.AuthorId)) ||
+
+            //        //If the post is public - we're checking if the user
+            //        //is in the "blockedAllowedUserId list (if the user is, post wont show in feed)
+            //        (post.IsPublic &&
+            //         !post.BlockedAllowedUserId.Contains(userid) &&
+            //         user.FollowId.Contains(post.AuthorId)
+            //        ))
+            //    .SortByDescending(post => post.PostId).Limit(5).ToList();
+
+            //if (userFeed == null)
+            //{
+            //    Console.WriteLine("User has no feed to see");
+            //    return;
+            //}
+            //foreach (var f in userFeed)
+            //{
+            //    Console.WriteLine($"{f}");
+            //}
+            ////////////////////////////////////////////////////////////////////////////////////////
         }
 
         public void GetWall(string userid, string guestId)
