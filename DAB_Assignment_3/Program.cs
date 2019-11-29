@@ -19,6 +19,7 @@ namespace DAB_Assignment_3
             var userServices = new UserServices();
             var _users = database.GetCollection<User>("Users");
 
+
             while (true)
             {
                 DisplayMainChoices();
@@ -38,6 +39,9 @@ namespace DAB_Assignment_3
                     case "4":
                         commentServices.CreateComment(UserInput("Input post id: "), DateTime.Now.ToString(),
                             UserInput("Input comment: "));
+                        break;
+                    case "5":
+                        userServices.CreateUser();
                         break;
                     default:
                         Console.WriteLine("Wrong input");
@@ -104,6 +108,7 @@ namespace DAB_Assignment_3
             Console.WriteLine("2: Select user by id");
             Console.WriteLine("3: Create Post");
             Console.WriteLine("4: Create Comment");
+            Console.WriteLine("5: Create user");
         }
 
         private static string UserInput(string outputToUser)

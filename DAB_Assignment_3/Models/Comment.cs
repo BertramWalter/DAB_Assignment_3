@@ -13,7 +13,7 @@ namespace DAB_Assignment_3.Models
             AuthorId = authorid;
             AuthorName = authorname;
             CommentString = commentstring;
-            DateTime = new DateTime();
+            this.DateTime = DateTime;
 
         }
 
