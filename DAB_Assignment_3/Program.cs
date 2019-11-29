@@ -148,8 +148,6 @@ namespace DAB_Assignment_3
             database.CreateCollection("Circles");
             database.CreateCollection("Comments");
             database.CreateCollection("Posts");
-            database.CreateCollection("DataPosts");
-            database.CreateCollection("TextPosts");
             database.CreateCollection("Users");
         }
 
