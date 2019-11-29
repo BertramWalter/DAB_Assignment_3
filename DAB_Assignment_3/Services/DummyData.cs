@@ -25,6 +25,10 @@ namespace DAB_Assignment_3.Services
                     gender = "F";
                 var user = new User("Name_"+i.ToString(),i+10,gender);
             }
+
+          
         }
+
+    
     }
 }
