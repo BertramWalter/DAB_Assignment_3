@@ -15,22 +15,19 @@ namespace DAB_Assignment_3
     class Program
     {
         static MongoClient client = new MongoClient("mongodb://localhost:27017");
+        
         static void Main(string[] args)
         {
-            
+            client.DropDatabase("SocialNetworkDb");
+
+            //Creates database if not exist
+            var database = GetDatabase("SocialNetworkDb");
+            CreateSocialNetworkCollections(database);
+
             var circleServices = new CircleServices();
             var commentServices = new CommentServices();
             var postServices = new PostServices();
             var userServices = new UserServices();
-
-            var database = client.GetDatabase("SocialNetworkDb");
-
-            database.CreateCollection("Circle");
-            database.CreateCollection("Comment");
-            database.CreateCollection("Post");
-            database.CreateCollection("DataPost");
-            database.CreateCollection("TextPost");
-            database.CreateCollection("User");
 
             var _users = database.GetCollection<User>("Users");
 
@@ -63,6 +60,8 @@ namespace DAB_Assignment_3
                         break;
                 }
             }
+
+            
         }
 
         private static void UserMenu(UserServices userServices)
@@ -130,6 +129,30 @@ namespace DAB_Assignment_3
             Console.WriteLine(outputToUser);
             return Console.ReadLine();
         }
+
+        //Not working
+        public static void ClearDatabase(string db)
+        {
+            client.DropDatabase("db");
+        }
+        //========
+
+        public static IMongoDatabase GetDatabase(string name)
+        {
+            var database = client.GetDatabase(name);
+            return (database);
+        }
+
+        public static void CreateSocialNetworkCollections(IMongoDatabase database)
+        {
+            database.CreateCollection("Circles");
+            database.CreateCollection("Comments");
+            database.CreateCollection("Posts");
+            database.CreateCollection("DataPosts");
+            database.CreateCollection("TextPosts");
+            database.CreateCollection("Users");
+        }
+
     }
 
 }
