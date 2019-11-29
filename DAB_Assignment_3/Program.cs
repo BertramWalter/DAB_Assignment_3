@@ -40,44 +40,14 @@ namespace DAB_Assignment_3
                         commentServices.CreateComment(UserInput("Input post id: "), DateTime.Now.ToString(),
                             UserInput("Input comment: "));
                         break;
+                    case "5":
+                        userServices.CreateUser();
+                        break;
                     default:
                         Console.WriteLine("Wrong input");
                         break;
                 }
-
             }
-
-
-
-
-            //List<Circle> circleList = circleServices.Get();
-            //List<Comment> commentList = circleServices.Get();
-            //List<Post> postList = circleServices.Get();
-            //List<Users> usersList = circleServices.Get();
-
-            //foreach (var c in circleList)
-            //{
-            //    Console.WriteLine(c);
-            //}
-
-            //foreach (var co in commentList)
-            //{
-            //    Console.WriteLine(co);
-            //}
-
-            //foreach (var p in postList)
-            //{
-            //    Console.WriteLine(p);
-            //}
-
-            //foreach (var u in usersList)
-            //{
-            //    Console.WriteLine(u);
-            //}
-
-           
-
-
         }
 
         private static void UserMenu(UserServices userServices)
@@ -138,6 +108,7 @@ namespace DAB_Assignment_3
             Console.WriteLine("2: Select user by id");
             Console.WriteLine("3: Create Post");
             Console.WriteLine("4: Create Comment");
+            Console.WriteLine("5: Create user");
         }
 
         private static string UserInput(string outputToUser)
