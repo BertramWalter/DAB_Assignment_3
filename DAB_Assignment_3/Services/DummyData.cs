@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using DAB_Assignment_3.Models;
 using MongoDB.Driver;
@@ -18,13 +20,27 @@ namespace DAB_Assignment_3.Services
             var rand = new Random();
             var usersList = new List<User>();
 
+            #region Users
+
             for (int i = 0; i < 10; i++)
             {
-                string gender;
-                gender = rand.Next(1) == 1 ? "M" : "F";
-                var user = new User("Name_"+i.ToString(),i+10,gender);
-                users.InsertOne(user);
+                var gender = rand.Next(1) == 1 ? "M" : "F";
+                var user = new User("Name_" + i.ToString(), i + 10, gender);
+                usersList.Add(user);
             }
+
+            foreach (var u in usersList)
+            {
+                foreach (var un in usersList.Where(un => un != u))
+                {
+                    if (rand.Next(2) == 2)
+                        u.BlockId.Add(un.Id);
+                    else
+                        u.FollowId.Add(un.Id);
+                }
+            }
+
+            #endregion
 
 
         }
