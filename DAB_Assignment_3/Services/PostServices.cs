@@ -64,30 +64,6 @@ namespace DAB_Assignment_3.Services
             }
         }
 
-        //This is some test functions, that does not work the way I want it.
-
-        public void someFunc()
-        {
-            Post post = ReturnDataPost();
-            if (post is DataPost)
-            {
-                DataPost datapost = (DataPost)post;
-                _ = datapost.Data;
-
-            }
-        }
-
-        public DataPost ReturnDataPost()
-        {
-            DataPost post = new DataPost();
-            return post;
-        }
-
-        public Post ReturnTextPost()
-        {
-            TextPost post = new TextPost();
-            return post;
-        }
 
         private void CreateDataPost(User user)
         {
@@ -234,9 +210,10 @@ namespace DAB_Assignment_3.Services
                     Console.Write("Write id: ");
                     string circleIdToInclude = Console.ReadLine();
 
-                    if (user.CircleName.Contains(circleIdToInclude))
+                    if (user.CircleId.Contains(circleIdToInclude))
                     {
-                        post.BlockedAllowedUserId.Add(circleIdToInclude);
+                        var c = _circles.Find<Circle>(c => c.CircleId == circleIdToInclude).FirstOrDefault();
+                        post.BlockedAllowedUserId = c.UserIds;
                     }
                     else
                     {
