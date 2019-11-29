@@ -24,10 +24,13 @@ namespace DAB_Assignment_3.Services
 
             #region Users
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 20; i++)
             {
-                //var gender = rand.Next(1) == 1 ? "M" : "F";
-                var gender = i / 2 == 1 ? "M" : "F";
+                var r = rand.Next(2);
+                var gender = r == 1 ? "M" : "F";
+                //Console.WriteLine(r);
+                
+                //var gender = i / 2 == 1 ? "M" : "F";
                 var user = new User("Name_" + i.ToString(), i + 10, gender);
                 usersList.Add(user);
             }
@@ -39,20 +42,24 @@ namespace DAB_Assignment_3.Services
             {
                 foreach (var un in usersList.Where(un => un != u))
                 {
-                    if (rand.Next(2) == 2)
-                        userService.BlockUser(u.Id, un.Id);
+                    var uUpdate = users.Find<User>(us => us.Id == u.Id).FirstOrDefault();
+                    if (rand.Next(3) == 2)
+                    {
+                        userService.BlockUser(u.Id,un.Id);
+                    }
                     else
+                    {
                         userService.Follow(u.Id,un.Id);
+                    }
                 }
             }
 
-            
             //users.InsertMany(usersList);
 
             #endregion
 
             #region Circle
-            int timeToAdd = 0;
+            
             foreach (var u in usersList)
             {
                 var c1 = new Circle(u.Name+"_C1",u.Id);
@@ -73,10 +80,13 @@ namespace DAB_Assignment_3.Services
             }
             #endregion
 
+           
             #region Post
+            int timeToAdd = 0;
             //Dummy Posts
             foreach (var user in usersList)
             {
+
                 TextPost textPost = new TextPost();
                 DataPost dataPost = new DataPost();
 
@@ -86,7 +96,7 @@ namespace DAB_Assignment_3.Services
                 textPost.AuthorName = user.Name;
                 dataPost.AuthorName = user.Name;
 
-                bool randPublicPost = rand.Next(1) == 1 ? true : false;
+                bool randPublicPost = rand.Next(2) == 1 ? true : false;
 
                 textPost.IsPublic = randPublicPost;
                 dataPost.IsPublic = randPublicPost;
