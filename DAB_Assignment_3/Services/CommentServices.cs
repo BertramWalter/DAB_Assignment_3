@@ -51,6 +51,8 @@ namespace DAB_Assignment_3.Services
                     else
                     {
                         var comment = new Comment(post_id, user.Id, user.Name, c,DateTime.Now);
+                        Console.WriteLine("Comment added");
+                        _comments.InsertOne(comment);
                     }
                 }
                 else
@@ -58,6 +60,8 @@ namespace DAB_Assignment_3.Services
                     if (post.BlockedAllowedUserId.Contains(userId))
                     {
                         var comment = new Comment(post_id, user.Id, user.Name, c, DateTime.Now);
+                        Console.WriteLine("Comment added");
+                        _comments.InsertOne(comment);
                     }
                     else
                     {
@@ -79,8 +83,7 @@ namespace DAB_Assignment_3.Services
             //comment.PostId = post_id;
             //this.DateTime = Console.WriteLine("{Date}");
             //Comment postcomment = new Comment(postid, authorid, authorname, commentstring, DateTime);
-            Console.WriteLine("Comment added");
-            _comments.InsertOne(comment);
+            
 
         }
 
