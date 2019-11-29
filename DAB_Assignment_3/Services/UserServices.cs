@@ -48,10 +48,10 @@ namespace DAB_Assignment_3.Services
         {
             try
             {
-                var updateFollowId = Builders<User>.Update.AddToSet(user => user.FollowId, blockUserId);
+                var updateFollowId = Builders<User>.Update.AddToSet(user => user.BlockId, blockUserId);
                 _users.FindOneAndUpdate(user => user.Id == userid, updateFollowId);
 
-                Console.WriteLine($"User {userid} is now blocking user with ID: {blockUserId}");
+                //Console.WriteLine($"User {userid} is now blocking user with ID: {blockUserId}");
             }
             catch (Exception e)
             {
@@ -69,7 +69,7 @@ namespace DAB_Assignment_3.Services
 
             if (userWhoBlocks == null)
             {
-                Console.WriteLine($"UserID {userid} doesn't exist or doesn't block ID: {blockedUserId}");
+                // Console.WriteLine($"UserID {userid} doesn't exist or doesn't block ID: {blockedUserId}");
                 return;
             }
 
@@ -86,7 +86,7 @@ namespace DAB_Assignment_3.Services
                 var updateFollowId = Builders<User>.Update.AddToSet(user => user.FollowId, userToFollow);
                 _users.FindOneAndUpdate(user => user.Id == userid, updateFollowId);
 
-                Console.WriteLine($"User {userid} is now following user with ID: {userToFollow}");
+                // Console.WriteLine($"User {userid} is now following user with ID: {userToFollow}");
             }
             catch (Exception e)
             {
@@ -103,7 +103,7 @@ namespace DAB_Assignment_3.Services
 
             if (user == null)
             {
-                Console.WriteLine($"UserID {userid} doesn't exist or doesn't follow ID: {userToUnfollow}");
+                //Console.WriteLine($"UserID {userid} doesn't exist or doesn't follow ID: {userToUnfollow}");
                 return;
             }
 
