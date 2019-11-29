@@ -46,7 +46,7 @@ namespace DAB_Assignment_3.Services
             #endregion
 
             #region Circle
-
+            int timeToAdd = 0;
             foreach (var u in usersList)
             {
                 var c1 = new Circle(u.Name+"_C1",u.Id);
@@ -110,6 +110,11 @@ namespace DAB_Assignment_3.Services
 
                 user.UserPostsId.Add(textPost.PostId);
                 user.UserPostsId.Add(dataPost.PostId);
+
+                //Overwrite DateTime
+                textPost.DateTime.AddHours(timeToAdd);
+                dataPost.DateTime.AddHours(timeToAdd);
+                timeToAdd++;
 
                 posts.InsertOne(textPost);
                 posts.InsertOne(dataPost);

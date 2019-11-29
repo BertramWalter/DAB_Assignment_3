@@ -11,6 +11,7 @@ namespace DAB_Assignment_3.Services
     {
         private readonly IMongoCollection<User> _users;
         private readonly IMongoCollection<Post> _posts;
+        private readonly IMongoCollection<Comment> _comments;
 
         public UserServices()
         {
@@ -19,6 +20,7 @@ namespace DAB_Assignment_3.Services
 
             _users = database.GetCollection<User>("Users");
             _posts = database.GetCollection<Post>("Posts");
+            _comments = database.GetCollection<Comment>("Comments");
         }
 
         //Find all users
@@ -70,6 +72,7 @@ namespace DAB_Assignment_3.Services
             }
 
             userWhoBlocks.BlockId.Add(userToBlock.Id);
+            Console.WriteLine($"User {userWhoBlocks.Name} has unblocked user: {userToBlock.Name}");
         }
 
 
@@ -102,6 +105,7 @@ namespace DAB_Assignment_3.Services
             }
 
             user.FollowId.Add(userToFollow);
+            Console.WriteLine($"User {user.Name} is now following user with ID: {userToFollow}");
         }
 
         public void UnFollow(string userid, string userToUnfollow)
@@ -129,68 +133,77 @@ namespace DAB_Assignment_3.Services
         public void GetFeed(string userid)
         {
             var user = _users.Find(findUser => findUser.Id == userid).FirstOrDefault();
-            
+
             //Find user from whom, you want to see feed
             if (user == null)
-            { 
-               Console.WriteLine("User doesn't exist");
-               return;
+            {
+                Console.WriteLine("User doesn't exist");
+                return;
             }
 
-            if (user.FollowId != null)
-            {
-                foreach (var f in user.FollowId)
-                {
-                    var followed = _users.Find(user =>
-                        user.Id == f).FirstOrDefault();
+            //if (user.FollowId.Count != 0)
+            //{
+            //    foreach (var f in user.FollowId)
+            //    {
+            //        var followed = _users.Find(user =>
+            //            user.Id == f).FirstOrDefault();
 
-                    if (followed.BlockId.Contains(userid))
-                    {
-                        Console.WriteLine($"User {user.Name} is blocked by user id: {f}");
-                        continue;
-                    }
-                    foreach (var p in followed.UserPostsId)
-                    {
-                        var followedPost = _posts.Find(post =>
-                            post.PostId == p).FirstOrDefault();
-                        if (!followedPost.BlockedAllowedUserId.Contains(user.Id) && !followedPost.IsPublic)
-                        {
-                            continue;
-                        }
-                        Console.WriteLine($"{followedPost}");
-                    }
+            //        if (followed.BlockId.Contains(userid))
+            //        {
+            //            Console.WriteLine($"User {user.Name} is blocked by user id: {f}");
+            //            continue;
+            //        }
+            //        foreach (var p in followed.UserPostsId)
+            //        {
+            //            var followedPost = _posts.Find(post =>
+            //                post.PostId == p).FirstOrDefault();
+            //            if (!followedPost.BlockedAllowedUserId.Contains(user.Id) && !followedPost.IsPublic)
+            //            {
+            //                continue;
+            //            }
+            //            Console.WriteLine($"{followedPost}");
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    Console.WriteLine($"User {user.Name} is not following anyone");
+            //}
+
+            ////////////////Spørg Henrik-lære om dette er smartere////////////////////////////
+            var userFeed = _posts.Find(post =>
+                    //Checking if post is private or public, if the use is blocked
+                    //or not - and if the user follows the author of post
+                    (post.IsPublic == false &&
+                     post.BlockedAllowedUserId.Contains(userid) &&
+                     user.FollowId.Contains(post.AuthorId)) ||
+
+                    //If the post is public - we're checking if the user
+                    //is in the "blockedAllowedUserId list (if the user is, post wont show in feed)
+                    (post.IsPublic &&
+                     !post.BlockedAllowedUserId.Contains(userid) &&
+                     user.FollowId.Contains(post.AuthorId)
+                    ))
+                .SortByDescending(post => post.PostId).Limit(5).ToList();
+
+            if (userFeed.Count == 0)
+            {
+                Console.WriteLine("User has no feed to see");
+                return;
+            }
+            foreach (var f in userFeed)
+            {
+                Console.WriteLine($"Feed: {f}");
+
+                var comments = _comments.Find(comment =>
+                        comment.PostId == f.PostId)
+                    .SortByDescending(comment => comment.PostId).Limit(5).ToList();
+                
+                foreach (var c in comments)
+                {
+                    Console.WriteLine($"Comment: {c.CommentString} at {c.DateTime}");
                 }
             }
-            else
-            {
-                Console.WriteLine($"User {user.Name} is not following anyone");
-            }
-
-            //////////////////Spørg Henrik-lære om dette er smartere////////////////////////////
-            //var userFeed = _posts.Find(post =>
-            //        //Checking if post is private or public, if the use is blocked
-            //        //or not - and if the user follows the author of post
-            //        (post.IsPublic == false &&
-            //         post.BlockedAllowedUserId.Contains(userid) &&
-            //         user.FollowId.Contains(post.AuthorId)) ||
-
-            //        //If the post is public - we're checking if the user
-            //        //is in the "blockedAllowedUserId list (if the user is, post wont show in feed)
-            //        (post.IsPublic &&
-            //         !post.BlockedAllowedUserId.Contains(userid) &&
-            //         user.FollowId.Contains(post.AuthorId)
-            //        ))
-            //    .SortByDescending(post => post.PostId).Limit(5).ToList();
-
-            //if (userFeed == null)
-            //{
-            //    Console.WriteLine("User has no feed to see");
-            //    return;
-            //}
-            //foreach (var f in userFeed)
-            //{
-            //    Console.WriteLine($"{f}");
-            //}
             ////////////////////////////////////////////////////////////////////////////////////////
         }
 
@@ -215,11 +228,10 @@ namespace DAB_Assignment_3.Services
             }
             
             var wall = _posts.Find(postsOnWall =>
-                postsOnWall.AuthorId == user.Id /*&&
-                user.FollowId.Contains(guestId)*/)
+                postsOnWall.AuthorId == user.Id)
             .SortByDescending(post => post.PostId).Limit(5).ToList();
 
-            if (wall == null)
+            if (wall.Count == 0)
             {
                 Console.WriteLine("There's no posts on the wall!");
                 return;
@@ -233,6 +245,15 @@ namespace DAB_Assignment_3.Services
                 }
 
                 Console.WriteLine($"{wp} test");
+
+                var comments = _comments.Find(comment =>
+                        comment.PostId == wp.PostId)
+                    .SortByDescending(comment => comment.PostId).Limit(5).ToList();
+
+                foreach (var c in comments)
+                {
+                    Console.WriteLine($"Comment: {c.CommentString} at {c.DateTime}");
+                }
             }
         }
 
