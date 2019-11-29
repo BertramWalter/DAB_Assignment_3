@@ -82,7 +82,6 @@ namespace DAB_Assignment_3.Services
             //Dummy Posts
             foreach (var user in usersList)
             {
-                var localrand = new Random(DateTime.Now.Millisecond);
 
                 TextPost textPost = new TextPost();
                 DataPost dataPost = new DataPost();
@@ -93,7 +92,7 @@ namespace DAB_Assignment_3.Services
                 textPost.AuthorName = user.Name;
                 dataPost.AuthorName = user.Name;
 
-                bool randPublicPost = localrand.Next(2) == 1 ? true : false;
+                bool randPublicPost = rand.Next(2) == 1 ? true : false;
 
                 textPost.IsPublic = randPublicPost;
                 dataPost.IsPublic = randPublicPost;
