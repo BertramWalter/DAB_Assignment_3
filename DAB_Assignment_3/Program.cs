@@ -30,8 +30,9 @@ namespace DAB_Assignment_3
             var userServices = new UserServices();
 
             var _users = database.GetCollection<User>("Users");
+            var dd = new DummyData();
 
-            DummyData.InsertDummyData(database);
+            dd.InsertDummyData(database);
             while (true)
             {
                 DisplayMainChoices();
