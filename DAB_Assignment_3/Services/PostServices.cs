@@ -234,9 +234,10 @@ namespace DAB_Assignment_3.Services
                     Console.Write("Write id: ");
                     string circleIdToInclude = Console.ReadLine();
 
-                    if (user.CircleName.Contains(circleIdToInclude))
+                    if (user.CircleId.Contains(circleIdToInclude))
                     {
-                        post.BlockedAllowedUserId.Add(circleIdToInclude);
+                        var c = _circles.Find<Circle>(c => c.CircleId == circleIdToInclude).FirstOrDefault();
+                        post.BlockedAllowedUserId = c.UserIds;
                     }
                     else
                     {

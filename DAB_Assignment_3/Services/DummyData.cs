@@ -26,7 +26,52 @@ namespace DAB_Assignment_3.Services
                 users.InsertOne(user);
             }
 
+            //Dummy Posts
+            foreach (var user in usersList)
+            {
+                TextPost textPost = new TextPost();
+                DataPost dataPost = new DataPost();
 
+                textPost.AuthorId = user.Id;
+                dataPost.AuthorId = user.Id;
+
+                textPost.AuthorName = user.Name;
+                dataPost.AuthorName = user.Name;
+
+                bool randPublicPost = rand.Next(1) == 1 ? true : false;
+
+                textPost.IsPublic = randPublicPost;
+                dataPost.IsPublic = randPublicPost;
+
+                string publicPost = randPublicPost == true ? "public" : "private";
+
+                textPost.Text = $"My name is {textPost.AuthorName} and my ID is {textPost.AuthorId}. This is a {publicPost} TEXTPOST.";
+                dataPost.Data = $"Audio: 'My name is {dataPost.AuthorName} and my ID is {dataPost.AuthorId}. This is a {publicPost} DATAPOST.'";
+
+                if (randPublicPost == true)
+                {
+                    foreach (var id in user.BlockId)
+                    {
+                        textPost.BlockedAllowedUserId.Add(id);
+                        dataPost.BlockedAllowedUserId.Add(id);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < user.CircleId.Count; i++)
+                    {
+                        var c = circles.Find<Circle>(c => c.CircleId == user.CircleId[i]).FirstOrDefault();
+                        textPost.BlockedAllowedUserId = c.UserIds;
+                        dataPost.BlockedAllowedUserId = c.UserIds;
+                    }
+                }
+
+                user.UserPostsId.Add(textPost.PostId);
+                user.UserPostsId.Add(dataPost.PostId);
+
+                posts.InsertOne(textPost);
+                posts.InsertOne(dataPost);
+            }
         }
     }
 }
