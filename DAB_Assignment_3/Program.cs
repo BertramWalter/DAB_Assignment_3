@@ -31,7 +31,7 @@ namespace DAB_Assignment_3
 
             var _users = database.GetCollection<User>("Users");
 
-           
+
             while (true)
             {
                 DisplayMainChoices();
