@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DAB_Assignment_3.Models;
 using DAB_Assignment_3.Services;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace DAB_Assignment_3
 {
+
+    
+
     class Program
     {
         static MongoClient client = new MongoClient("mongodb://localhost:27017");
@@ -17,7 +22,20 @@ namespace DAB_Assignment_3
             var commentServices = new CommentServices();
             var postServices = new PostServices();
             var userServices = new UserServices();
+
+            MongoDatabase db = client.GetDatabase("MyDatabase");
+
+
+            database.CreateCollection("Circle");
+            database.CreateCollection("Comment");
+            database.CreateCollection("Post");
+            database.CreateCollection("DataPost");
+            database.CreateCollection("TextPost");
+            database.CreateCollection("User");
+
             var _users = database.GetCollection<User>("Users");
+
+            
 
 
             while (true)
@@ -85,7 +103,6 @@ namespace DAB_Assignment_3
                 }
             }
         }
-
 
         private static void ListAllUsers(UserServices userServices)
         {
