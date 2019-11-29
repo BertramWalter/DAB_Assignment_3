@@ -171,6 +171,7 @@ namespace DAB_Assignment_3.Services
                 Console.WriteLine("Private post added to circles");
             }
 
+            user.UserPostsId.Add(post.PostId);
             _dataPosts.InsertOne(post);
         }
 
@@ -256,6 +257,7 @@ namespace DAB_Assignment_3.Services
                 Console.WriteLine("Private post added to circles");
             }
 
+            user.UserPostsId.Add(post.PostId);
             _textPosts.InsertOne(post);
         }
     }
