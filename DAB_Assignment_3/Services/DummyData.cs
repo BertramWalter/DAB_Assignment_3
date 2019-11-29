@@ -139,8 +139,8 @@ namespace DAB_Assignment_3.Services
             //post1 = post.PostId;
 
             //var comment11 = new Comment(postid:$"{post.PostId}",authorid: "a11", authorname:"Peter",commentstring:"Halvvejs", new DateTime(year: 2019, month: 1, day: 21, hour: 11, minute: 1, second: 1));
-            var comment1 = new Comment(postid:"1", authorid: "a1", authorname: "Per Thorsen", commentstring: "Hvor er du?", new DateTime(year: 2019, month: 11, day: 29, hour: 19, minute: 3, second: 43));
-            var comment2 = new Comment(postid: "1", authorid: "a2", authorname: "Poul E", commentstring: "WebAPI load", new DateTime(year: 2019, month: 11, day: 29, hour: 11, minute: 23, second: 23));
+            var comment1 = new Comment(postid: "5de0f9c001b2926a64596da9", authorid: "5de0f9bf01b2926a64596d81", authorname: "Per Thorsen", commentstring: "Hvor er du?", new DateTime(year: 2019, month: 11, day: 29, hour: 19, minute: 3, second: 43));
+            var comment2 = new Comment(postid: "5de0f9c001b2926a64596da9", authorid: "5de0fc31dd4208128827dc05", authorname: "Poul E", commentstring: "WebAPI load", new DateTime(year: 2019, month: 11, day: 29, hour: 11, minute: 23, second: 23));
             var comment3 = new Comment(postid: "3", authorid: "a3", authorname: "Henrik", commentstring: "MongoDb virker ikke", new DateTime(year: 2019, month: 11, day: 29, hour: 11, minute: 23, second: 28));
             var comment4 = new Comment(postid: "3", authorid: "a3", authorname: "Henrik", commentstring: "Nu virker det!", new DateTime(year: 2019, month: 11, day: 29, hour: 11, minute: 53, second: 16));
             var comment5 = new Comment(postid: "4", authorid: "a4", authorname: "Søren H", commentstring: "Giver det mening??", new DateTime(year: 2019, month: 11, day: 29, hour: 7, minute: 23, second: 23));
