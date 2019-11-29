@@ -24,10 +24,13 @@ namespace DAB_Assignment_3.Services
 
             #region Users
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 20; i++)
             {
-                //var gender = rand.Next(1) == 1 ? "M" : "F";
-                var gender = i / 2 == 1 ? "M" : "F";
+                var r = rand.Next(2);
+                var gender = r == 1 ? "M" : "F";
+                //Console.WriteLine(r);
+                
+                //var gender = i / 2 == 1 ? "M" : "F";
                 var user = new User("Name_" + i.ToString(), i + 10, gender);
                 usersList.Add(user);
             }
@@ -39,7 +42,7 @@ namespace DAB_Assignment_3.Services
             {
                 foreach (var un in usersList.Where(un => un != u))
                 {
-                    if (rand.Next(2) == 2)
+                    if (rand.Next(3) == 2)
                         userService.BlockUser(u.Id,un.Id);
                     else
                         userService.Follow(u.Id,un.Id);
