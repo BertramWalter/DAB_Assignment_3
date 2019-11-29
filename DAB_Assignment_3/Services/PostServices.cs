@@ -51,11 +51,11 @@ namespace DAB_Assignment_3.Services
 
             } while (key.Key != ConsoleKey.D && key.Key != ConsoleKey.T);
 
-            if(key.Key != ConsoleKey.D)
+            if(key.Key == ConsoleKey.D)
             {
                 CreateDataPost(user);
             }
-            else
+            else if(key.Key == ConsoleKey.T)
             {
                 CreateTextPost(user);
             }
@@ -63,22 +63,30 @@ namespace DAB_Assignment_3.Services
 
         //This is some test functions, that does not work the way I want it.
 
-        //public void someFunc()
-        //{
-        //    Post post = someReturnFunc();
-        //}
+        public void someFunc()
+        {
+            Post post = ReturnDataPost();
+            if (post is DataPost)
+            {
+                DataPost datapost = (DataPost)post;
+                _ = datapost.Data;
 
-        //public DataPost someReturnFunc()
-        //{
-        //    DataPost post = new DataPost();
-        //    return post;
-        //}
+            }
+        }
 
-        //public Post someOtherReturnFunc()
-        //{
-        //    TextPost post = new TextPost();
-        //    return post;
-        //}
+        public DataPost ReturnDataPost()
+        {
+            DataPost post = new DataPost();
+            return post;
+        }
+
+        public Post ReturnTextPost()
+        {
+            TextPost post = new TextPost();
+            return post;
+        }
+
+
 
 
         private void CreateDataPost(User user)
@@ -173,7 +181,7 @@ namespace DAB_Assignment_3.Services
             post.AuthorId = user.Id;
             post.AuthorName = user.Name;
 
-            Console.WriteLine($"\nHello {post.AuthorName}! You are maing a textpost.");
+            Console.WriteLine($"\nHello {post.AuthorName}! You are making a textpost.");
 
             Console.WriteLine("Do you want your post to be public or not?\n");
             ConsoleKeyInfo key;
