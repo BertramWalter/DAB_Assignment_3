@@ -58,9 +58,6 @@ namespace DAB_Assignment_3.Services
                 Console.WriteLine("User doesn't exist");
                 return;
             }
-
-            userWhoBlocks.BlockId.Add(userToBlock.Id);
-            Console.WriteLine($"User {userWhoBlocks.Name} has unblocked user: {userToBlock.Name}");
         }
 
 
@@ -96,9 +93,6 @@ namespace DAB_Assignment_3.Services
                 Console.WriteLine("User doesn't exist");
                 return;
             }
-
-            user.FollowId.Add(userToFollow);
-            Console.WriteLine($"User {user.Name} is now following user with ID: {userToFollow}");
         }
 
         public void UnFollow(string userid, string userToUnfollow)
