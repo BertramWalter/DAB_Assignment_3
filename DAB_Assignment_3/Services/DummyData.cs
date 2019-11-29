@@ -42,14 +42,18 @@ namespace DAB_Assignment_3.Services
             {
                 foreach (var un in usersList.Where(un => un != u))
                 {
+                    var uUpdate = users.Find<User>(us => us.Id == u.Id).FirstOrDefault();
                     if (rand.Next(3) == 2)
+                    {
                         userService.BlockUser(u.Id,un.Id);
+                    }
                     else
+                    {
                         userService.Follow(u.Id,un.Id);
+                    }
                 }
             }
 
-            
             //users.InsertMany(usersList);
 
             #endregion
