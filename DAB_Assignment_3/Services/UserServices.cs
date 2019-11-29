@@ -48,7 +48,7 @@ namespace DAB_Assignment_3.Services
         {
             try
             {
-                var updateFollowId = Builders<User>.Update.AddToSet(user => user.FollowId, blockUserId);
+                var updateFollowId = Builders<User>.Update.AddToSet(user => user.BlockId, blockUserId);
                 _users.FindOneAndUpdate(user => user.Id == userid, updateFollowId);
 
                 Console.WriteLine($"User {userid} is now blocking user with ID: {blockUserId}");
