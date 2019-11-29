@@ -40,7 +40,7 @@ namespace DAB_Assignment_3.Services
                 foreach (var un in usersList.Where(un => un != u))
                 {
                     if (rand.Next(2) == 2)
-                        userService.BlockUser(u.Id,un.Id);
+                        userService.BlockUser(u.Id, un.Id);
                     else
                         userService.Follow(u.Id,un.Id);
                 }
