@@ -46,33 +46,18 @@ namespace DAB_Assignment_3.Services
 
         public void BlockUser(string userid, string blockUserId)
         {
-            //try
-            //{
-            //    var userWhoBlocks = _users.Find(findUser => findUser.Id == userid).FirstOrDefault();
-
-            //    var userToBlock = _users.Find(findUser => findUser.Id == blockUserId).FirstOrDefault();
-
-            //    userWhoBlocks.BlockId.Add(userToBlock.Id);
-            //}
-            //catch (Exception e)
-            //{
-            //    Console.WriteLine("User or userToBlockId non-existent");
-            //    return;
-            //    //Console.WriteLine(e);
-            //    //throw;
-            //}
-
-            var userWhoBlocks = _users.Find(findUser => findUser.Id == userid).FirstOrDefault();
-            var userToBlock = _users.Find(findUser => findUser.Id == blockUserId).FirstOrDefault();
-
-            if (userWhoBlocks == null || userToBlock == null)
+            try
             {
-                Console.WriteLine("User or userToBlockId non-existent");
+                var updateFollowId = Builders<User>.Update.AddToSet(user => user.BlockId, blockUserId);
+                _users.FindOneAndUpdate(user => user.Id == userid, updateFollowId);
+
+                Console.WriteLine($"User {userid} is now blocking user with ID: {blockUserId}");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("User doesn't exist");
                 return;
             }
-
-            userWhoBlocks.BlockId.Add(userToBlock.Id);
-            Console.WriteLine($"User {userWhoBlocks.Name} has unblocked user: {userToBlock.Name}");
         }
 
 
@@ -90,22 +75,24 @@ namespace DAB_Assignment_3.Services
 
             userWhoBlocks.BlockId.Remove(blockedUserId);
             
-            Console.WriteLine($"User {userWhoBlocks.Name} has unblocked user with ID: {blockedUserId}");
+            //Console.WriteLine($"User {userWhoBlocks.Name} has unblocked user with ID: {blockedUserId}");
         }
 
         public void Follow(string userid, string userToFollow)
         {
-            var user = _users.Find(user =>
-                user.Id == userid).FirstOrDefault();
 
-            if (user == null)
+            try
+            {
+                var updateFollowId = Builders<User>.Update.AddToSet(user => user.FollowId, userToFollow);
+                _users.FindOneAndUpdate(user => user.Id == userid, updateFollowId);
+
+                Console.WriteLine($"User {userid} is now following user with ID: {userToFollow}");
+            }
+            catch (Exception)
             {
                 Console.WriteLine("User doesn't exist");
                 return;
             }
-
-            user.FollowId.Add(userToFollow);
-            Console.WriteLine($"User {user.Name} is now following user with ID: {userToFollow}");
         }
 
         public void UnFollow(string userid, string userToUnfollow)
@@ -193,7 +180,18 @@ namespace DAB_Assignment_3.Services
             }
             foreach (var f in userFeed)
             {
-                Console.WriteLine($"Feed: {f}");
+                if (f is DataPost)
+                {
+                    DataPost dp = (DataPost) f;
+                    Console.WriteLine($"Feed: {dp.Data}");
+                }
+                else if (f is TextPost)
+                {
+                    TextPost tp = (TextPost) f;
+                    Console.WriteLine($"Feed: {tp.Text}");
+                }
+
+                //Console.WriteLine($"Feed: {f}");
 
                 var comments = _comments.Find(comment =>
                         comment.PostId == f.PostId)
@@ -244,7 +242,17 @@ namespace DAB_Assignment_3.Services
                     continue;
                 }
 
-                Console.WriteLine($"{wp} test");
+                if (wp is DataPost)
+                {
+                    DataPost dp = (DataPost)wp;
+                    Console.WriteLine($"Feed: {dp.Data}");
+                }
+                else if (wp is TextPost)
+                {
+                    TextPost tp = (TextPost)wp;
+                    Console.WriteLine($"Feed: {tp.Text}");
+                }
+                //Console.WriteLine($"{wp} test");
 
                 var comments = _comments.Find(comment =>
                         comment.PostId == wp.PostId)
