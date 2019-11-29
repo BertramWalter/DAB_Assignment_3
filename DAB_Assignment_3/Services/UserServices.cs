@@ -44,8 +44,23 @@ namespace DAB_Assignment_3.Services
 
         public void BlockUser(string userid, string blockUserId)
         {
-            var userWhoBlocks = _users.Find(findUser => findUser.Id == userid).FirstOrDefault();
+            //try
+            //{
+            //    var userWhoBlocks = _users.Find(findUser => findUser.Id == userid).FirstOrDefault();
 
+            //    var userToBlock = _users.Find(findUser => findUser.Id == blockUserId).FirstOrDefault();
+
+            //    userWhoBlocks.BlockId.Add(userToBlock.Id);
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine("User or userToBlockId non-existent");
+            //    return;
+            //    //Console.WriteLine(e);
+            //    //throw;
+            //}
+
+            var userWhoBlocks = _users.Find(findUser => findUser.Id == userid).FirstOrDefault();
             var userToBlock = _users.Find(findUser => findUser.Id == blockUserId).FirstOrDefault();
 
             if (userWhoBlocks == null || userToBlock == null)
@@ -118,7 +133,7 @@ namespace DAB_Assignment_3.Services
             //Find user from whom, you want to see feed
             if (user == null)
             { 
-               Console.WriteLine("User doesn't exist"); //throw new System.ArgumentException("User ID non-existent");
+               Console.WriteLine("User doesn't exist");
                return;
             }
 
@@ -137,11 +152,13 @@ namespace DAB_Assignment_3.Services
                     foreach (var p in followed.UserPostsId)
                     {
                         var followedPost = _posts.Find(post =>
-                            post.PostId == p);
-
+                            post.PostId == p).FirstOrDefault();
+                        if (!followedPost.BlockedAllowedUserId.Contains(user.Id) && !followedPost.IsPublic)
+                        {
+                            continue;
+                        }
                         Console.WriteLine($"{followedPost}");
                     }
-
                 }
             }
             else
@@ -149,7 +166,7 @@ namespace DAB_Assignment_3.Services
                 Console.WriteLine($"User {user.Name} is not following anyone");
             }
 
-            ////////////////////Spørg Henrik-lære om dette er smartere////////////////////////////
+            //////////////////Spørg Henrik-lære om dette er smartere////////////////////////////
             //var userFeed = _posts.Find(post =>
             //        //Checking if post is private or public, if the use is blocked
             //        //or not - and if the user follows the author of post
@@ -182,28 +199,40 @@ namespace DAB_Assignment_3.Services
             var user = _users.Find(findUser => findUser.Id == userid).FirstOrDefault();
             var guest = _users.Find(findGuest => findGuest.Id == guestId).FirstOrDefault();
 
-            if (user == null ||guest == null)
+            if (user == null || guest == null)
             {
-                Console.WriteLine("User or guest doesnt exist");
+                Console.WriteLine("User or guest doesn't exist");
                 return;
             }
 
-            //Checking if guest is blocked by user
-            if (user.BlockId.Contains(guestId))
+            if (user.BlockId != null)
             {
-                Console.WriteLine("Guest is blocked by user!");
+                if (user.BlockId.Contains(guestId))
+                {
+                    Console.WriteLine("Guest is blocked by user!");
+                    return;
+                }
+            }
+            
+            var wall = _posts.Find(postsOnWall =>
+                postsOnWall.AuthorId == user.Id /*&&
+                user.FollowId.Contains(guestId)*/)
+            .SortByDescending(post => post.PostId).Limit(5).ToList();
+
+            if (wall == null)
+            {
+                Console.WriteLine("There's no posts on the wall!");
                 return;
             }
-
-            var wall = _posts.Find(postsOnWall => 
-                postsOnWall.AuthorId == user.Id &&
-                user.FollowId.Contains(guestId))
-                .SortByDescending(post => post.PostId).Limit(5).ToList();
-
 
             foreach (var wp in wall)
             {
-                Console.WriteLine($"{wp}");
+                if (!wp.IsPublic && !wp.BlockedAllowedUserId.Contains(guestId))
+                {
+                    continue;
+                }
+
+                Console.WriteLine($"{wp} test");
             }
         }
 

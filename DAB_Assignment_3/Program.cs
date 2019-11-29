@@ -25,12 +25,12 @@ namespace DAB_Assignment_3
 
             var database = client.GetDatabase("SocialNetworkDb");
 
-            database.CreateCollection("Circle");
-            database.CreateCollection("Comment");
-            database.CreateCollection("Post");
-            database.CreateCollection("DataPost");
-            database.CreateCollection("TextPost");
-            database.CreateCollection("User");
+            //database.CreateCollection("Circle");
+            //database.CreateCollection("Comment");
+            //database.CreateCollection("Post");
+            //database.CreateCollection("DataPost");
+            //database.CreateCollection("TextPost");
+            //database.CreateCollection("User");
 
             var _users = database.GetCollection<User>("Users");
 
