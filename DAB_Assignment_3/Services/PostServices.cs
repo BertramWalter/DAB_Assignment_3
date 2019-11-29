@@ -51,7 +51,6 @@ namespace DAB_Assignment_3.Services
 
             } while (key.Key != ConsoleKey.D && key.Key != ConsoleKey.T);
 
-
             if(key.Key != ConsoleKey.D)
             {
                 CreateDataPost(user);
@@ -89,24 +88,24 @@ namespace DAB_Assignment_3.Services
             post.AuthorId = user.Id;
             post.AuthorName = user.Name;
 
-            Console.WriteLine($"Hello {post.AuthorName}!");
+            Console.WriteLine($"\nHello {post.AuthorName}! You are making a datapost.");
 
             Console.WriteLine("Do you want your post to be public or not?");
             ConsoleKeyInfo key;
 
             do
             {
-                Console.Write("PRESS 'Y' for YES or 'N' for NO: ");
+                Console.WriteLine("PRESS 'Y' for YES or 'N' for NO");
                 key = Console.ReadKey(true);
                 if (key.Key == ConsoleKey.Y)
                 {
                     post.IsPublic = true;
-                    Console.WriteLine("Post status: Public");
+                    Console.WriteLine("Post status: Public\n");
                 }
                 else if (key.Key == ConsoleKey.N)
                 {
                     post.IsPublic = false;
-                    Console.WriteLine("Post status: Private");
+                    Console.WriteLine("Post status: Private\n");
                 }
             } while (key.Key != ConsoleKey.Y && key.Key != ConsoleKey.N);
 
@@ -174,24 +173,24 @@ namespace DAB_Assignment_3.Services
             post.AuthorId = user.Id;
             post.AuthorName = user.Name;
 
-            Console.WriteLine($"Hello {post.AuthorName}!");
+            Console.WriteLine($"\nHello {post.AuthorName}! You are maing a textpost.");
 
-            Console.WriteLine("Do you want your post to be public or not?");
+            Console.WriteLine("Do you want your post to be public or not?\n");
             ConsoleKeyInfo key;
 
             do
             {
-                Console.Write("PRESS 'Y' for YES or 'N' for NO: ");
+                Console.WriteLine("PRESS 'Y' for YES or 'N' for NO");
                 key = Console.ReadKey(true);
                 if (key.Key == ConsoleKey.Y)
                 {
                     post.IsPublic = true;
-                    Console.WriteLine("Post status: Public");
+                    Console.WriteLine("Post status: Public\n");
                 }
                 else if (key.Key == ConsoleKey.N)
                 {
                     post.IsPublic = false;
-                    Console.WriteLine("Post status: Private");
+                    Console.WriteLine("Post status: Private\n");
                 }
             }while (key.Key != ConsoleKey.Y && key.Key != ConsoleKey.N);
 
