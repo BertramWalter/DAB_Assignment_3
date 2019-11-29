@@ -49,8 +49,9 @@ namespace DAB_Assignment_3
                         postServices.CreatePost();
                         break;
                     case "4":
-                        commentServices.CreateComment(UserInput("Input post id: "), DateTime.Now.ToString(),
-                            UserInput("Input comment: "));
+                        //commentServices.CreateComment(UserInput("Input post id: "), DateTime.Now.ToString(),
+                        //    UserInput("Input comment: "));
+                        commentServices.CreateComment(UserInput("Input postId"),UserInput("Input User Id:"),UserInput("Input comment"));
                         break;
                     case "5":
                         userServices.CreateUser();

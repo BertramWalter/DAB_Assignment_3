@@ -25,26 +25,28 @@ namespace DAB_Assignment_3.Services
             _circle = database.GetCollection<Circle>("Circles");
         }
 
-        public void CreateComment( Post postid, string post_id /*string datetime*/ ,Comment comment)
+        public void CreateComment(string post_id, string userId, string c)
         {
+            var user = _users.Find(x => x.Id == userId).FirstOrDefault();
             //if no posts available
             var post = _post.Find(x => x.PostId == post_id ).FirstOrDefault();
             if (post == null)
             {
                 Console.WriteLine("Invalid post");
             }
+            var comment = new Comment(post_id, user.Id, user.Name,c,DateTime.Now);
 
             //   user = _users;
             //DateTime comment.DateTime = datetime;
             //comment.DateTime = DateTime.Parse(Date);
-            Console.WriteLine("Type your comment: ");
-            string commentstring = Console.ReadLine();
+            //Console.WriteLine("Type your comment: ");
+            //string commentstring = Console.ReadLine();
 
             
-            comment.AuthorName = postid.AuthorName;
-            comment.CommentString = commentstring;
-            comment.AuthorId = postid.AuthorId;
-            comment.PostId = postid.PostId;
+            //comment.AuthorName = post.AuthorName;
+            //comment.CommentString = commentstring;
+            //comment.AuthorId = post.AuthorId;
+            //comment.PostId = post_id;
 
             //this.DateTime = Console.WriteLine("{Date}");
 
