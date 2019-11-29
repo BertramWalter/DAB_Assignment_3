@@ -38,11 +38,36 @@ namespace DAB_Assignment_3.Services
                     else
                         u.FollowId.Add(un.Id);
                 }
+
+                users.InsertOne(u);
             }
 
             #endregion
 
+            #region Circle
 
+            foreach (var u in usersList)
+            {
+                var c1 = new Circle(u.Name+"_C1",u.Id);
+                var c2 = new Circle(u.Name + "_C2", u.Id);
+                var c3 = new Circle(u.Name + "_C3", u.Id);
+                foreach (var un in usersList.Where(un => un != u))
+                {
+                    if (rand.Next(2) == 2)
+                        c1.UserIds.Add(un.Id);
+                    if (rand.Next(2) == 2)
+                        c2.UserIds.Add(un.Id);
+                    if (rand.Next(2) == 2)
+                        c3.UserIds.Add(un.Id);
+                }
+                circles.InsertOne(c1);
+                circles.InsertOne(c2);
+                circles.InsertOne(c3);
+            }
+
+            #endregion
+
+            
         }
     }
 }
