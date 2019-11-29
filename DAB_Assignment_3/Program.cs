@@ -17,14 +17,13 @@ namespace DAB_Assignment_3
         static MongoClient client = new MongoClient("mongodb://localhost:27017");
         static void Main(string[] args)
         {
-            var database = client.GetDatabase("SocialNetworkDb");
+            
             var circleServices = new CircleServices();
             var commentServices = new CommentServices();
             var postServices = new PostServices();
             var userServices = new UserServices();
 
-            MongoDatabase db = client.GetDatabase("MyDatabase");
-
+            var database = client.GetDatabase("SocialNetworkDb");
 
             database.CreateCollection("Circle");
             database.CreateCollection("Comment");
@@ -35,9 +34,7 @@ namespace DAB_Assignment_3
 
             var _users = database.GetCollection<User>("Users");
 
-            
-
-
+           
             while (true)
             {
                 DisplayMainChoices();
