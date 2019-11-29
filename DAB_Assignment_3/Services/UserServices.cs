@@ -11,7 +11,6 @@ namespace DAB_Assignment_3.Services
     {
         private readonly IMongoCollection<User> _users;
         private readonly IMongoCollection<Post> _posts;
-        private readonly IMongoCollection<Circle> _circle;
 
         public UserServices()
         {
@@ -32,7 +31,7 @@ namespace DAB_Assignment_3.Services
             Console.Write("Enter new username: ");
             string name = Console.ReadLine();
             Console.Write("\nEnter users age: ");
-            int age = Console.Read();
+            int age = Convert.ToInt32(Console.ReadLine());
             Console.Write("\nEnter gender: ");
             string gender = Console.ReadLine();
 
@@ -130,7 +129,15 @@ namespace DAB_Assignment_3.Services
             ////Get all id from the followed users - now see posts from these?
             ////---------------------------------------------------------------//
 
+            try
+            {
 
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("User has no feed to see");
+                throw;
+            }
             var userFeed = _posts.Find(post => 
                 //Checking if post is private or public, if the use is blocked
                 //or not - and if the user follows the author of post
@@ -146,7 +153,11 @@ namespace DAB_Assignment_3.Services
                 ))
                 .SortByDescending(post => post.PostId).Limit(5).ToList();
 
-
+            if (userFeed == null)
+            {
+                Console.WriteLine("User has no feed to see");
+                return;
+            }
             foreach (var f in userFeed)
             {
                 Console.WriteLine($"{f}");
