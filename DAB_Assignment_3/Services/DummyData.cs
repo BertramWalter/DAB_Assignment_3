@@ -64,7 +64,9 @@ namespace DAB_Assignment_3.Services
                 circles.InsertOne(c2);
                 circles.InsertOne(c3);
             }
+            #endregion
 
+            #region Post
             //Dummy Posts
             foreach (var user in usersList)
             {
@@ -111,6 +113,10 @@ namespace DAB_Assignment_3.Services
                 posts.InsertOne(textPost);
                 posts.InsertOne(dataPost);
             }
+
+            #endregion
         }
+
+
     }
 }
