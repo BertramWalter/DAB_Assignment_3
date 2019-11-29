@@ -31,7 +31,7 @@ namespace DAB_Assignment_3
 
             var _users = database.GetCollection<User>("Users");
 
-
+            DummyData.InsertDummyData(database);
             while (true)
             {
                 DisplayMainChoices();
@@ -61,8 +61,6 @@ namespace DAB_Assignment_3
                         break;
                 }
             }
-
-            
         }
 
         private static void UserMenu(UserServices userServices)
