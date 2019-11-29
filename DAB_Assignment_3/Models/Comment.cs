@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using MongoDB.Bson;
 
 namespace DAB_Assignment_3.Models
 {
@@ -18,6 +19,7 @@ namespace DAB_Assignment_3.Models
         }
 
         [BsonElement("PostId")]
+        [BsonRepresentation(BsonType.ObjectId)]
         public string PostId { get; set; }
 
         [BsonElement("AuthorId")]

@@ -34,6 +34,8 @@ namespace DAB_Assignment_3.Services
             {
                 Console.WriteLine("Invalid post");
             }
+
+            //post_id = post.PostId;
             var comment = new Comment(post_id, user.Id, user.Name,c,DateTime.Now);
 
             //   user = _users;
