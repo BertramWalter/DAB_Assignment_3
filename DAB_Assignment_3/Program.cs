@@ -43,40 +43,7 @@ namespace DAB_Assignment_3
                         Console.WriteLine("Wrong input");
                         break;
                 }
-
             }
-
-
-
-
-            //List<Circle> circleList = circleServices.Get();
-            //List<Comment> commentList = circleServices.Get();
-            //List<Post> postList = circleServices.Get();
-            //List<Users> usersList = circleServices.Get();
-
-            //foreach (var c in circleList)
-            //{
-            //    Console.WriteLine(c);
-            //}
-
-            //foreach (var co in commentList)
-            //{
-            //    Console.WriteLine(co);
-            //}
-
-            //foreach (var p in postList)
-            //{
-            //    Console.WriteLine(p);
-            //}
-
-            //foreach (var u in usersList)
-            //{
-            //    Console.WriteLine(u);
-            //}
-
-           
-
-
         }
 
         private static void UserMenu(UserServices userServices)
