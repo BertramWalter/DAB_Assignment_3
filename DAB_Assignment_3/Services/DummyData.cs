@@ -9,39 +9,45 @@ using MongoDB.Driver;
 
 namespace DAB_Assignment_3.Services
 {
-    public static class DummyData
+    public class DummyData
     {
-        public static void InsertDummyData(IMongoDatabase database)
+        public void InsertDummyData(IMongoDatabase database)
         {
             var users = database.GetCollection<User>("Users");
             var posts = database.GetCollection<Post>("Posts");
             var comments = database.GetCollection<Comment>("Comments");
             var circles = database.GetCollection<Circle>("Circles");
+            var userService = new UserServices();
 
-            var rand = new Random();
+            var rand = new Random(DateTime.Now.Millisecond);
             var usersList = new List<User>();
 
             #region Users
 
             for (int i = 0; i < 10; i++)
             {
-                var gender = rand.Next(1) == 1 ? "M" : "F";
+                //var gender = rand.Next(1) == 1 ? "M" : "F";
+                var gender = i / 2 == 1 ? "M" : "F";
                 var user = new User("Name_" + i.ToString(), i + 10, gender);
                 usersList.Add(user);
             }
+            users.InsertMany(usersList);
+
+            usersList = users.Find(u => true).ToList();
 
             foreach (var u in usersList)
             {
                 foreach (var un in usersList.Where(un => un != u))
                 {
                     if (rand.Next(2) == 2)
-                        u.BlockId.Add(un.Id);
+                        userService.BlockUser(u.Id,un.Id);
                     else
-                        u.FollowId.Add(un.Id);
+                        userService.Follow(u.Id,un.Id);
                 }
-
-                users.InsertOne(u);
             }
+
+            
+            //users.InsertMany(usersList);
 
             #endregion
 
@@ -125,7 +131,7 @@ namespace DAB_Assignment_3.Services
             InsertCommentDummyData(database);
         }
 
-        public static void InsertCommentDummyData(IMongoDatabase database)
+        public void InsertCommentDummyData(IMongoDatabase database)
         {
             var comments = database.GetCollection<Comment>("Comments");
             var comment1 = new Comment(postid:"1",authorid: "a1", authorname:"Per Thorsen",commentstring:"Hvor er du?", new DateTime(year: 2019, month: 11, day: 29, hour: 19, minute: 3, second: 43));
