@@ -135,30 +135,33 @@ namespace DAB_Assignment_3.Services
 
                 posts.InsertOne(textPost);
                 posts.InsertOne(dataPost);
+
+                InsertCommentDummyData(database,textPost,dataPost);
             }
 
             #endregion
 
-            InsertCommentDummyData(database);
+            
         }
 
-        public static void InsertCommentDummyData(IMongoDatabase database /*Post post*/)
+        public static void InsertCommentDummyData(IMongoDatabase database, TextPost tp, DataPost dp)
         {
             var comments = database.GetCollection<Comment>("Comments");
             //var posts = database.GetCollection<Post>("Posts");
             //post1 = post.PostId;
 
             //var comment11 = new Comment(postid:$"{post.PostId}",authorid: "a11", authorname:"Peter",commentstring:"Halvvejs", new DateTime(year: 2019, month: 1, day: 21, hour: 11, minute: 1, second: 1));
-            var comment1 = new Comment(postid: "5de0f9c001b2926a64596da9", authorid: "5de0f9bf01b2926a64596d81", authorname: "Per Thorsen", commentstring: "Hvor er du?", new DateTime(year: 2019, month: 11, day: 29, hour: 19, minute: 3, second: 43));
-            var comment2 = new Comment(postid: "5de0f9c001b2926a64596da9", authorid: "5de0fc31dd4208128827dc05", authorname: "Poul E", commentstring: "WebAPI load", new DateTime(year: 2019, month: 11, day: 29, hour: 11, minute: 23, second: 23));
-            var comment3 = new Comment(postid: "5de0fc31dd4208128827dc2f", authorid: "5de0fc31dd4208128827dc05", authorname: "Henrik", commentstring: "MongoDb virker ikke", new DateTime(year: 2019, month: 11, day: 29, hour: 11, minute: 23, second: 28));
-            var comment4 = new Comment(postid: "5de0fc31dd4208128827dc2f", authorid: "5de0fc31dd4208128827dc05", authorname: "Henrik", commentstring: "Nu virker det!", new DateTime(year: 2019, month: 11, day: 29, hour: 11, minute: 53, second: 16));
-            var comment5 = new Comment(postid: "5de0fc31dd4208128827dc30", authorid: "5de0fc31dd4208128827dc06", authorname: "Søren H", commentstring: "Giver det mening??", new DateTime(year: 2019, month: 11, day: 29, hour: 7, minute: 23, second: 23));
-            var comment6 = new Comment(postid: "5de0fc31dd4208128827dc32", authorid: "5de0fc31dd4208128827dc07", authorname: "Lars M", commentstring: "Nu er jeg vaagen", new DateTime(year: 2019, month: 11, day: 29, hour: 10, minute: 23, second: 23));
-            var comment7 = new Comment(postid: "5de0fc31dd4208128827dc32", authorid: "5de0fc31dd4208128827dc08", authorname: "Henrik O", commentstring: "Du kan bare komme forbi kontoret", new DateTime(year: 2019, month: 11, day: 30, hour: 8, minute: 23, second: 23));
-            var comment8 = new Comment(postid: "5de0fc31dd4208128827dc34", authorid: "5de0fc31dd4208128827dc08", authorname: "Torben", commentstring: "Jeg tager papir med", new DateTime(year: 2019, month: 11, day: 18, hour: 4, minute: 40, second: 33));
-            var comment9 = new Comment(postid: "5de0fc31dd4208128827dc36", authorid: "5de0fc31dd4208128827dc09", authorname: "Kim", commentstring: "Kravsspec og review", new DateTime(year: 2019, month: 11, day: 29, hour: 10, minute: 20, second: 0));
-            var comment10 = new Comment(postid: "5de0fc31dd4208128827dc36", authorid: "5de0fc31dd4208128827dc0a", authorname: "Frankster", commentstring: "ehhhmm", new DateTime(year:2019,month:11,day:30,hour:10,minute:21,second:1));
+            var comment1 = new Comment(tp.PostId, tp.AuthorId, tp.AuthorName, commentstring: "Hvor er du?", new DateTime(year: 2019, month: 11, day: 29, hour: 19, minute: 3, second: 43));
+            var comment2 = new Comment(dp.PostId, dp.AuthorId, dp.AuthorName, commentstring: "HVOR ER DU?", new DateTime(year: 2019, month: 11, day: 29, hour: 19, minute: 3, second: 43));
+            var comment3 = new Comment(tp.PostId, tp.AuthorId, tp.AuthorName, commentstring: "WebAPI load", new DateTime(year: 2019, month: 11, day: 29, hour: 11, minute: 23, second: 23));
+            var comment4 = new Comment(dp.PostId, dp.AuthorId, dp.AuthorName, commentstring: "MongoDb virker ikke", new DateTime(year: 2019, month: 11, day: 29, hour: 11, minute: 23, second: 28));
+            var comment5 = new Comment(tp.PostId, tp.AuthorId, tp.AuthorName, commentstring: "Nu virker det!", new DateTime(year: 2019, month: 11, day: 29, hour: 11, minute: 53, second: 16));
+            var comment6 = new Comment(dp.PostId, dp.AuthorId, dp.AuthorName, commentstring: "Giver det mening??", new DateTime(year: 2019, month: 11, day: 29, hour: 7, minute: 23, second: 23));
+            var comment7 = new Comment(tp.PostId, tp.AuthorId, tp.AuthorName, commentstring: "Nu er jeg vaagen", new DateTime(year: 2019, month: 11, day: 29, hour: 10, minute: 23, second: 23));
+            var comment8 = new Comment(dp.PostId, dp.AuthorId, dp.AuthorName, commentstring: "Du kan bare komme forbi kontoret", new DateTime(year: 2019, month: 11, day: 30, hour: 8, minute: 23, second: 23));
+            var comment9 = new Comment(tp.PostId, tp.AuthorId, tp.AuthorName, commentstring: "Jeg tager papir med", new DateTime(year: 2019, month: 11, day: 18, hour: 4, minute: 40, second: 33));
+            var comment10 = new Comment(dp.PostId, dp.AuthorId, dp.AuthorName, commentstring: "Kravsspec og review", new DateTime(year: 2019, month: 11, day: 29, hour: 10, minute: 20, second: 0));
+        
             comments.InsertOne(comment1);
             comments.InsertOne(comment2);
             comments.InsertOne(comment3);
