@@ -10,7 +10,7 @@ namespace DAB_Assignment_3.Models
     {
         public Post()
         {
-            BlockedAllowedUserId = new List<string>();
+            //BlockedAllowedUserId = new List<string>();
             DateTime = DateTime.Now;
         }
 

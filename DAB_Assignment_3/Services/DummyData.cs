@@ -45,7 +45,7 @@ namespace DAB_Assignment_3.Services
             #endregion
 
             #region Circle
-            int timeToAdd = 0;
+            
             foreach (var u in usersList)
             {
                 var c1 = new Circle(u.Name+"_C1",u.Id);
@@ -66,10 +66,14 @@ namespace DAB_Assignment_3.Services
             }
             #endregion
 
+           
             #region Post
+            int timeToAdd = 0;
             //Dummy Posts
             foreach (var user in usersList)
             {
+                var localrand = new Random(DateTime.Now.Millisecond);
+
                 TextPost textPost = new TextPost();
                 DataPost dataPost = new DataPost();
 
@@ -79,7 +83,7 @@ namespace DAB_Assignment_3.Services
                 textPost.AuthorName = user.Name;
                 dataPost.AuthorName = user.Name;
 
-                bool randPublicPost = rand.Next(1) == 1 ? true : false;
+                bool randPublicPost = localrand.Next(2) == 1 ? true : false;
 
                 textPost.IsPublic = randPublicPost;
                 dataPost.IsPublic = randPublicPost;
