@@ -43,25 +43,25 @@ namespace DAB_Assignment_3.Services
             else
             {
                 if (post.IsPublic == true)
-                {
+                { // if post is public
                     if (post.BlockedAllowedUserId.Contains(userId))
                     {
-                        Console.WriteLine("User is blocked");
+                        Console.WriteLine("UserID is blocked, you cannot write any comment.");
                     }
                     else
                     {
-                        var comment = new Comment(post_id, user.Id, user.Name,c,DateTime.Now);
+                        var comment = new Comment(post_id, user.Id, user.Name, c,DateTime.Now);
                     }
                 }
                 else
                 { // if post is private.
                     if (post.BlockedAllowedUserId.Contains(userId))
                     {
-                        Console.WriteLine("User is blocked");
+                        var comment = new Comment(post_id, user.Id, user.Name, c, DateTime.Now);
                     }
                     else
                     {
-                        var comment = new Comment(post_id, user.Id, user.Name, c, DateTime.Now);
+                        Console.WriteLine("UserID is not a part of any of the user circles.");
                     }
                 }
             }
