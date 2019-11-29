@@ -11,6 +11,7 @@ namespace DAB_Assignment_3.Services
     {
         private readonly IMongoCollection<User> _users;
         private readonly IMongoCollection<Post> _posts;
+        private readonly IMongoCollection<Comment> _comments;
 
         public UserServices()
         {
@@ -19,6 +20,7 @@ namespace DAB_Assignment_3.Services
 
             _users = database.GetCollection<User>("Users");
             _posts = database.GetCollection<Post>("Posts");
+            _comments = database.GetCollection<Comment>("Comments");
         }
 
         //Find all users
@@ -70,6 +72,7 @@ namespace DAB_Assignment_3.Services
             }
 
             userWhoBlocks.BlockId.Add(userToBlock.Id);
+            Console.WriteLine($"User {userWhoBlocks.Name} has unblocked user: {userToBlock.Name}");
         }
 
 
@@ -102,6 +105,7 @@ namespace DAB_Assignment_3.Services
             }
 
             user.FollowId.Add(userToFollow);
+            Console.WriteLine($"User {user.Name} is now following user with ID: {userToFollow}");
         }
 
         public void UnFollow(string userid, string userToUnfollow)
@@ -190,6 +194,15 @@ namespace DAB_Assignment_3.Services
             foreach (var f in userFeed)
             {
                 Console.WriteLine($"Feed: {f}");
+
+                var comments = _comments.Find(comment =>
+                        comment.PostId == f.PostId)
+                    .SortByDescending(comment => comment.PostId).Limit(5).ToList();
+                
+                foreach (var c in comments)
+                {
+                    Console.WriteLine($"Comment: {c.CommentString} at {c.DateTime}");
+                }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
         }
@@ -232,6 +245,15 @@ namespace DAB_Assignment_3.Services
                 }
 
                 Console.WriteLine($"{wp} test");
+
+                var comments = _comments.Find(comment =>
+                        comment.PostId == wp.PostId)
+                    .SortByDescending(comment => comment.PostId).Limit(5).ToList();
+
+                foreach (var c in comments)
+                {
+                    Console.WriteLine($"Comment: {c.CommentString} at {c.DateTime}");
+                }
             }
         }
 
