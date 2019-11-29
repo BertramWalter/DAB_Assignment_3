@@ -53,7 +53,7 @@ namespace DAB_Assignment_3.Services
 
                 //Console.WriteLine($"User {userid} is now blocking user with ID: {blockUserId}");
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Console.WriteLine("User doesn't exist");
                 return;
@@ -88,7 +88,7 @@ namespace DAB_Assignment_3.Services
 
                 // Console.WriteLine($"User {userid} is now following user with ID: {userToFollow}");
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Console.WriteLine("User doesn't exist");
                 return;
@@ -180,7 +180,18 @@ namespace DAB_Assignment_3.Services
             }
             foreach (var f in userFeed)
             {
-                Console.WriteLine($"Feed: {f}");
+                if (f is DataPost)
+                {
+                    DataPost dp = (DataPost) f;
+                    Console.WriteLine($"Feed: {dp.Data}");
+                }
+                else if (f is TextPost)
+                {
+                    TextPost tp = (TextPost) f;
+                    Console.WriteLine($"Feed: {tp.Text}");
+                }
+
+                //Console.WriteLine($"Feed: {f}");
 
                 var comments = _comments.Find(comment =>
                         comment.PostId == f.PostId)
@@ -231,7 +242,17 @@ namespace DAB_Assignment_3.Services
                     continue;
                 }
 
-                Console.WriteLine($"{wp} test");
+                if (wp is DataPost)
+                {
+                    DataPost dp = (DataPost)wp;
+                    Console.WriteLine($"Feed: {dp.Data}");
+                }
+                else if (wp is TextPost)
+                {
+                    TextPost tp = (TextPost)wp;
+                    Console.WriteLine($"Feed: {tp.Text}");
+                }
+                //Console.WriteLine($"{wp} test");
 
                 var comments = _comments.Find(comment =>
                         comment.PostId == wp.PostId)
