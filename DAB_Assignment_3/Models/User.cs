@@ -21,7 +21,6 @@ namespace DAB_Assignment_3.Models
             Gender = gender;
         }
 
-
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
