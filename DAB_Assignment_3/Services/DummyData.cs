@@ -115,6 +115,8 @@ namespace DAB_Assignment_3.Services
             }
 
             #endregion
+
+            InsertCommentDummyData(database);
         }
 
         public static void InsertCommentDummyData(IMongoDatabase database)
@@ -129,7 +131,8 @@ namespace DAB_Assignment_3.Services
             var comment7 = new Comment(postid: "5", authorid: "a6", authorname: "Henrik O", commentstring: "Du kan bare komme forbi kontoret", DateTime.Now);
             var comment8 = new Comment(postid: "6", authorid: "a7", authorname: "Torben", commentstring: "Jeg tager papir med", DateTime.Now);
             var comment9 = new Comment(postid: "7", authorid: "a8", authorname: "Kim", commentstring: "Kravsspec og review", DateTime.Now);
-            var comment10 = new Comment(postid: "7", authorid: "a9", authorname: "Frankster", commentstring: "ehhhmm", DateTime.Now);
+            var comment10 = new Comment(postid: "7", authorid: "a9", authorname: "Frankster", commentstring: "ehhhmm", new DateTime(2019,11,2,23,2,23));
+
             comments.InsertOne(comment1);
             comments.InsertOne(comment2);
             comments.InsertOne(comment3);
