@@ -219,7 +219,6 @@ namespace DAB_Assignment_3.Services
                     TextPost tp = (TextPost)wp;
                     Console.WriteLine($"Wall: {tp.Text}");
                 }
-                //Console.WriteLine($"{wp} test");
 
                 var comments = _comments.Find(comment =>
                         comment.PostId == wp.PostId)
