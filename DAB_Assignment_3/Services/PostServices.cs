@@ -8,8 +8,6 @@ namespace DAB_Assignment_3.Services
 {
     public class PostServices
     {
-        //private IMongoCollection<Post> _textPosts;
-        //private IMongoCollection<Post> _dataPosts;
         private IMongoCollection<User> _users;
         private IMongoCollection<Circle> _circles;
         private IMongoCollection<Post> _posts;
@@ -19,10 +17,7 @@ namespace DAB_Assignment_3.Services
             var client = new MongoClient("mongodb://localhost:27017");
             var database = client.GetDatabase("SocialNetworkDb");
 
-            //_dataPosts = database.GetCollection<Post>("DataPosts");
-            //_textPosts = database.GetCollection<Post>("TextPosts");
             _posts = database.GetCollection<Post>("Post");
-
             _users = database.GetCollection<User>("Users");
             _circles = database.GetCollection<Circle>("Circles");
         }

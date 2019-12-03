@@ -29,9 +29,6 @@ namespace DAB_Assignment_3.Services
             {
                 var r = rand.Next(2);
                 var gender = r == 1 ? "M" : "F";
-                //Console.WriteLine(r);
-                
-                //var gender = i / 2 == 1 ? "M" : "F";
                 var user = new User("Name_" + i.ToString(), i + 10, gender);
                 usersList.Add(user);
             }
@@ -54,8 +51,6 @@ namespace DAB_Assignment_3.Services
                     }
                 }
             }
-
-            //users.InsertMany(usersList);
 
             #endregion
 
@@ -147,10 +142,7 @@ namespace DAB_Assignment_3.Services
         public static void InsertCommentDummyData(IMongoDatabase database, TextPost tp, DataPost dp)
         {
             var comments = database.GetCollection<Comment>("Comments");
-            //var posts = database.GetCollection<Post>("Posts");
-            //post1 = post.PostId;
 
-            //var comment11 = new Comment(postid:$"{post.PostId}",authorid: "a11", authorname:"Peter",commentstring:"Halvvejs", new DateTime(year: 2019, month: 1, day: 21, hour: 11, minute: 1, second: 1));
             var comment1 = new Comment(tp.PostId, tp.AuthorId, tp.AuthorName, commentstring: "Hvor er du?", new DateTime(year: 2019, month: 11, day: 29, hour: 19, minute: 3, second: 43));
             var comment2 = new Comment(dp.PostId, dp.AuthorId, dp.AuthorName, commentstring: "HVOR ER DU?", new DateTime(year: 2019, month: 11, day: 29, hour: 19, minute: 3, second: 43));
             var comment3 = new Comment(tp.PostId, tp.AuthorId, tp.AuthorName, commentstring: "WebAPI load", new DateTime(year: 2019, month: 11, day: 29, hour: 11, minute: 23, second: 23));
@@ -172,16 +164,6 @@ namespace DAB_Assignment_3.Services
             comments.InsertOne(comment8);
             comments.InsertOne(comment9);
             comments.InsertOne(comment10);
-            //comments.InsertOne(comment11);
-
-            //comments.InsertMany(comment1,comment2, comment3,comment4,comment5,comment6,comment7,comment8,comment9,comment10]);
-            /*comments.InsertMany(
-                [ < comment1 1 > , < comment2 2 >, ... ], 
-            {
-                writeConcern: < comments >,
-                ordered: < boolean >
-            }
-            )*/
         }
 
     }

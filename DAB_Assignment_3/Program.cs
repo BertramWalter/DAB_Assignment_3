@@ -10,10 +10,10 @@ using MongoDB.Driver;
 namespace DAB_Assignment_3
 {
 
-    
 
     class Program
     {
+        //Connection string - TILPAS "localhost:27017" til egen PC.
         static MongoClient client = new MongoClient("mongodb://localhost:27017");
         
         static void Main(string[] args)

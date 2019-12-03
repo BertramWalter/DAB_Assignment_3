@@ -50,8 +50,6 @@ namespace DAB_Assignment_3.Services
             {
                 var updateFollowId = Builders<User>.Update.AddToSet(user => user.BlockId, blockUserId);
                 _users.FindOneAndUpdate(user => user.Id == userid, updateFollowId);
-
-                Console.WriteLine($"User {userid} is now blocking user with ID: {blockUserId}");
             }
             catch (Exception)
             {
@@ -74,8 +72,6 @@ namespace DAB_Assignment_3.Services
             }
 
             userWhoBlocks.BlockId.Remove(blockedUserId);
-            
-            //Console.WriteLine($"User {userWhoBlocks.Name} has unblocked user with ID: {blockedUserId}");
         }
 
         public void Follow(string userid, string userToFollow)
@@ -85,8 +81,6 @@ namespace DAB_Assignment_3.Services
             {
                 var updateFollowId = Builders<User>.Update.AddToSet(user => user.FollowId, userToFollow);
                 _users.FindOneAndUpdate(user => user.Id == userid, updateFollowId);
-
-                Console.WriteLine($"User {userid} is now following user with ID: {userToFollow}");
             }
             catch (Exception)
             {
@@ -128,36 +122,7 @@ namespace DAB_Assignment_3.Services
                 return;
             }
 
-            //if (user.FollowId.Count != 0)
-            //{
-            //    foreach (var f in user.FollowId)
-            //    {
-            //        var followed = _users.Find(user =>
-            //            user.Id == f).FirstOrDefault();
 
-            //        if (followed.BlockId.Contains(userid))
-            //        {
-            //            Console.WriteLine($"User {user.Name} is blocked by user id: {f}");
-            //            continue;
-            //        }
-            //        foreach (var p in followed.UserPostsId)
-            //        {
-            //            var followedPost = _posts.Find(post =>
-            //                post.PostId == p).FirstOrDefault();
-            //            if (!followedPost.BlockedAllowedUserId.Contains(user.Id) && !followedPost.IsPublic)
-            //            {
-            //                continue;
-            //            }
-            //            Console.WriteLine($"{followedPost}");
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    Console.WriteLine($"User {user.Name} is not following anyone");
-            //}
-
-            ////////////////Spørg Henrik-lære om dette er smartere////////////////////////////
             var userFeed = _posts.Find(post =>
                     //Checking if post is private or public, if the use is blocked
                     //or not - and if the user follows the author of post
