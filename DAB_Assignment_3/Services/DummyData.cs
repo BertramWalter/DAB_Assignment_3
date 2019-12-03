@@ -120,7 +120,6 @@ namespace DAB_Assignment_3.Services
                     }
                 }
 
-
                 try
                 {
                     var updateUserPostId = Builders<User>.Update.AddToSet(user => user.UserPostsId, textPost.PostId);
@@ -142,17 +141,6 @@ namespace DAB_Assignment_3.Services
                     Console.WriteLine("User doesn't exist");
                     return;
                 }
-
-                //try
-                //{
-                //    var updateFollowId = Builders<User>.Update.AddToSet(user => user.FollowId, userToFollow);
-                //    _users.FindOneAndUpdate(user => user.Id == userid, updateFollowId);
-                //}
-                //catch (Exception)
-                //{
-                //    Console.WriteLine("User doesn't exist");
-                //    return;
-                //}
 
 
                 //user.UserPostsId.Add(textPost.PostId);
