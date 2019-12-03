@@ -12,13 +12,13 @@ namespace DAB_Assignment_3.Services
 {
     public class DummyData
     {
-        public void InsertDummyData(IMongoDatabase database)
+        public void InsertDummyData(IMongoDatabase database, string connection)
         {
             var users = database.GetCollection<User>("Users");
             var posts = database.GetCollection<Post>("Posts");
             var comments = database.GetCollection<Comment>("Comments");
             var circles = database.GetCollection<Circle>("Circles");
-            var userService = new UserServices();
+            var userService = new UserServices(connection);
 
             var rand = new Random(DateTime.Now.Millisecond);
             var usersList = new List<User>();

@@ -13,9 +13,9 @@ namespace DAB_Assignment_3.Services
         private readonly IMongoCollection<Post> _posts;
         private readonly IMongoCollection<Comment> _comments;
 
-        public UserServices()
+        public UserServices(string connection)
         {
-            var client = new MongoClient("mongodb://localhost:27017");
+            var client = new MongoClient(connection);
             var database = client.GetDatabase("SocialNetworkDb");
 
             _users = database.GetCollection<User>("Users");

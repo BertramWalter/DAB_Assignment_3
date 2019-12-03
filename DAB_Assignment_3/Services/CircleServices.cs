@@ -11,9 +11,9 @@ namespace DAB_Assignment_3.Services
         private IMongoCollection<User> _users;
         private IMongoCollection<Circle> _circles;
 
-        public CircleServices()
+        public CircleServices(string connection)
         {
-            var client = new MongoClient("mongodb://localhost:27017");
+            var client = new MongoClient(connection);
             var database = client.GetDatabase("SocialNetworkDb");
 
             _users = database.GetCollection<User>("Users");

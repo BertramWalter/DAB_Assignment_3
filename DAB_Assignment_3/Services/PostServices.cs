@@ -12,12 +12,12 @@ namespace DAB_Assignment_3.Services
         private IMongoCollection<Circle> _circles;
         private IMongoCollection<Post> _posts;
 
-        public PostServices()
+        public PostServices(string connection)
         {
-            var client = new MongoClient("mongodb://localhost:27017");
+            var client = new MongoClient(connection);
             var database = client.GetDatabase("SocialNetworkDb");
 
-            _posts = database.GetCollection<Post>("Post");
+            _posts = database.GetCollection<Post>("Posts");
             _users = database.GetCollection<User>("Users");
             _circles = database.GetCollection<Circle>("Circles");
         }

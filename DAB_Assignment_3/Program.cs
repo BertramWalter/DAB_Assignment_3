@@ -9,12 +9,14 @@ using MongoDB.Driver;
 
 namespace DAB_Assignment_3
 {
-
+    
 
     class Program
     {
         //Connection string - TILPAS "localhost:27017" til egen PC.
-        static MongoClient client = new MongoClient("mongodb://localhost:27017");
+        static string connectionString = "mongodb://localhost:27017";
+
+        static MongoClient client = new MongoClient(connectionString);
         
         static void Main(string[] args)
         {
@@ -25,15 +27,15 @@ namespace DAB_Assignment_3
             var database = GetDatabase("SocialNetworkDb");
             CreateSocialNetworkCollections(database);
 
-            var circleServices = new CircleServices();
-            var commentServices = new CommentServices();
-            var postServices = new PostServices();
-            var userServices = new UserServices();
+            var circleServices = new CircleServices(connectionString);
+            var commentServices = new CommentServices(connectionString);
+            var postServices = new PostServices(connectionString);
+            var userServices = new UserServices(connectionString);
 
             var _users = database.GetCollection<User>("Users");
             var dd = new DummyData();
 
-            dd.InsertDummyData(database);
+            dd.InsertDummyData(database, connectionString);
             while (true)
             {
                 DisplayMainChoices();

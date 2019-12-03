@@ -15,9 +15,9 @@ namespace DAB_Assignment_3.Services
         private IMongoCollection<Circle> _circle;
         private IMongoCollection<Post> _post;
 
-        public CommentServices()
+        public CommentServices(string connection)
         {
-            var client = new MongoClient("mongodb://localhost:27017");
+            var client = new MongoClient(connection);
             var database = client.GetDatabase("SocialNetworkDb");
 
             _comments = database.GetCollection<Comment>("Comments");
