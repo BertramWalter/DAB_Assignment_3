@@ -63,11 +63,12 @@ namespace DAB_Assignment_3.Services
                 var c3 = new Circle(u.Name + "_C3", u.Id);
                 foreach (var un in usersList.Where(un => un != u))
                 {
-                    if (rand.Next(2) == 2)
+                    int random = rand.Next(3);
+                    if (random == 0)
                         c1.UserIds.Add(un.Id);
-                    if (rand.Next(2) == 2)
+                    if (random == 1)
                         c2.UserIds.Add(un.Id);
-                    if (rand.Next(2) == 2)
+                    if (random == 2)
                         c3.UserIds.Add(un.Id);
                 }
                 circles.InsertOne(c1);
@@ -119,8 +120,43 @@ namespace DAB_Assignment_3.Services
                     }
                 }
 
-                user.UserPostsId.Add(textPost.PostId);
-                user.UserPostsId.Add(dataPost.PostId);
+
+                try
+                {
+                    var updateUserPostId = Builders<User>.Update.AddToSet(user => user.UserPostsId, textPost.PostId);
+                    users.FindOneAndUpdate(user => user.Id == textPost.AuthorId, updateUserPostId);
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("User doesn't exist");
+                    return;
+                }
+
+                try
+                {
+                    var updateUserPostId = Builders<User>.Update.AddToSet(user => user.UserPostsId, dataPost.PostId);
+                    users.FindOneAndUpdate(user => user.Id == dataPost.AuthorId, updateUserPostId);
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("User doesn't exist");
+                    return;
+                }
+
+                //try
+                //{
+                //    var updateFollowId = Builders<User>.Update.AddToSet(user => user.FollowId, userToFollow);
+                //    _users.FindOneAndUpdate(user => user.Id == userid, updateFollowId);
+                //}
+                //catch (Exception)
+                //{
+                //    Console.WriteLine("User doesn't exist");
+                //    return;
+                //}
+
+
+                //user.UserPostsId.Add(textPost.PostId);
+                //user.UserPostsId.Add(dataPost.PostId);
 
                 //Overwrite DateTime
                 textPost.DateTime.AddHours(timeToAdd);

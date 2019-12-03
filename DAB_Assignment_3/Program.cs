@@ -53,7 +53,7 @@ namespace DAB_Assignment_3
                         postServices.CreatePost();
                         break;
                     case "4":
-                        commentServices.CreateComment(UserInput("Input postId"),UserInput("Input User Id:"),UserInput("Input comment"));
+                        commentServices.CreateComment();
                         break;
                     case "5":
                         userServices.CreateUser();
@@ -84,7 +84,7 @@ namespace DAB_Assignment_3
                     Console.WriteLine("Choices:");
                     Console.WriteLine("1: Get user feed");
                     Console.WriteLine("2: Get Wall as guest");
-                    var selection = UserInput("Inout Selection");
+                    var selection = UserInput("Input Selection");
                     switch (selection)
                     {
                         case "1":

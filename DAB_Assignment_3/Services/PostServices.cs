@@ -109,6 +109,11 @@ namespace DAB_Assignment_3.Services
                 foreach (var id in user.CircleId)
                 {
                     var c = _circles.Find<Circle>(c => c.CircleId == id).FirstOrDefault();
+                    if (c == null)
+                    {
+                        Console.WriteLine("You don't have any circles");
+                    }
+              
                     Console.WriteLine($"Circle id: {c.CircleId}, Cicle name: {c.Name}");
                 }
 
@@ -142,7 +147,32 @@ namespace DAB_Assignment_3.Services
                 Console.WriteLine("Private post added to circles");
             }
 
-            user.UserPostsId.Add(post.PostId);
+
+            try
+            {
+                var updateUserPostId = Builders<User>.Update.AddToSet(user => user.UserPostsId, post.PostId);
+                _users.FindOneAndUpdate(user => user.Id == post.AuthorId, updateUserPostId);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("User doesn't exist");
+                return;
+            }
+
+
+
+
+            //try
+            //{
+            //    var updateFollowId = Builders<User>.Update.AddToSet(user => user.FollowId, userToFollow);
+            //    _users.FindOneAndUpdate(user => user.Id == userid, updateFollowId);
+            //}
+            //catch (Exception)
+            //{
+            //    Console.WriteLine("User doesn't exist");
+            //    return;
+            //}
+
             _posts.InsertOne(post);
         }
 

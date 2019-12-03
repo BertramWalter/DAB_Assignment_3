@@ -198,7 +198,7 @@ namespace DAB_Assignment_3.Services
                 postsOnWall.AuthorId == user.Id)
             .SortBy(post => post.DateTime).Limit(5).ToList();
 
-            if (wall.Count == 0)
+            if (wall.Count == 0 || wall == null)
             {
                 Console.WriteLine("There's no posts on the wall!");
                 return;

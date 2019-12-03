@@ -26,8 +26,11 @@ namespace DAB_Assignment_3.Services
             _circle = database.GetCollection<Circle>("Circles");
         }
 
-        public void CreateComment(string post_id, string userId, string c)
+        public void CreateComment()
         {
+            Console.Write("Input your UserID: ");
+            string userId = Console.ReadLine();
+
             var user = _users.Find(x => x.Id == userId).FirstOrDefault();
             if (user == null)
             {
@@ -35,11 +38,42 @@ namespace DAB_Assignment_3.Services
                 return;
             }
 
+            Console.Write("Input Author of post's UserID: ");
+            string AuthorUserId = Console.ReadLine();
+
+            var auUser = _users.Find(x => x.Id == AuthorUserId).FirstOrDefault();
+            if (auUser == null)
+            {
+                Console.WriteLine("Author does not exist");
+                return;
+            }
+            else
+            {
+                if(auUser.UserPostsId.Count == 0)
+                {
+                    Console.WriteLine("Author has no posts");
+                    return;
+                }
+                else
+                {
+                    foreach (var p in auUser.UserPostsId)
+                    {
+                        Console.WriteLine(p);
+                    }
+                }
+                
+            }
+
+
+            Console.Write("Input PostID: ");
+            string post_id = Console.ReadLine();
+
             //if no posts available
             var post = _post.Find(x => x.PostId == post_id ).FirstOrDefault();
             if (post == null)
             {
                 Console.WriteLine("Invalid post");
+                return;
             }
             else
             {
@@ -51,6 +85,9 @@ namespace DAB_Assignment_3.Services
                     }
                     else
                     {
+                        Console.Write("Write comment: ");
+                        string c = Console.ReadLine();
+
                         var comment = new Comment(post_id, user.Id, user.Name, c,DateTime.Now);
                         Console.WriteLine("Comment added");
                         _comments.InsertOne(comment);
@@ -60,6 +97,9 @@ namespace DAB_Assignment_3.Services
                 { // if post is private.
                     if (post.BlockedAllowedUserId.Contains(userId))
                     {
+                        Console.Write("Write comment: ");
+                        string c = Console.ReadLine();
+
                         var comment = new Comment(post_id, user.Id, user.Name, c, DateTime.Now);
                         Console.WriteLine("Comment added");
                         _comments.InsertOne(comment);
