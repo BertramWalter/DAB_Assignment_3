@@ -17,9 +17,11 @@ namespace DAB_Assignment_3.Models
             this.DateTime = DateTime;
 
         }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string CommentId { get; set; }
 
         [BsonElement("PostId")]
-        [BsonRepresentation(BsonType.ObjectId)]
         public string PostId { get; set; }
 
         [BsonElement("AuthorId")]
