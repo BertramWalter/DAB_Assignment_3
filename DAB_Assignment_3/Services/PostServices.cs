@@ -98,7 +98,12 @@ namespace DAB_Assignment_3.Services
             {
                 foreach (var id in user.BlockId)
                 {
-                    post.BlockedAllowedUserId.Add(id);
+                    var updateBlockedAllowedUserId = Builders<Post>.Update.AddToSet(post => post.BlockedAllowedUserId, id);
+                    _posts.FindOneAndUpdate(post => post.AuthorId == user.Id, updateBlockedAllowedUserId);
+
+
+                    //post.BlockedAllowedUserId.Add(id);
+
                 }
 
                 Console.WriteLine("Public post added");
@@ -126,7 +131,9 @@ namespace DAB_Assignment_3.Services
 
                     if (user.CircleName.Contains(circleIdToInclude))
                     {
-                        post.BlockedAllowedUserId.Add(circleIdToInclude);
+                        var updateBlockedAllowedUserId = Builders<Post>.Update.AddToSet(post => post.BlockedAllowedUserId, circleIdToInclude);
+                        _posts.FindOneAndUpdate(post => post.AuthorId == user.Id, updateBlockedAllowedUserId);
+                        //post.BlockedAllowedUserId.Add(circleIdToInclude);
                     }
                     else
                     {

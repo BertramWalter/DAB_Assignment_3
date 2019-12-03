@@ -106,8 +106,8 @@ namespace DAB_Assignment_3.Services
                 {
                     foreach (var id in user.BlockId)
                     {
-                        textPost.BlockedAllowedUserId.Add(id);
-                        dataPost.BlockedAllowedUserId.Add(id);
+                        var updateBlockedAllowedUserId = Builders<Post>.Update.AddToSet(post => post.BlockedAllowedUserId, id);
+                        posts.FindOneAndUpdate(post => post.AuthorId == user.Id, updateBlockedAllowedUserId);
                     }
                 }
                 else
@@ -115,8 +115,9 @@ namespace DAB_Assignment_3.Services
                     for (int i = 0; i < user.CircleId.Count; i++)
                     {
                         var c = circles.Find<Circle>(c => c.CircleId == user.CircleId[i]).FirstOrDefault();
-                        textPost.BlockedAllowedUserId = c.UserIds;
-                        dataPost.BlockedAllowedUserId = c.UserIds;
+
+                        var updateBlockedAllowedUserId = Builders<Post>.Update.AddToSet(post => post.BlockedAllowedUserId, c.CircleId);
+                        posts.FindOneAndUpdate(post => post.AuthorId == user.Id, updateBlockedAllowedUserId);
                     }
                 }
 
@@ -142,9 +143,6 @@ namespace DAB_Assignment_3.Services
                     return;
                 }
 
-
-                //user.UserPostsId.Add(textPost.PostId);
-                //user.UserPostsId.Add(dataPost.PostId);
 
                 //Overwrite DateTime
                 textPost.DateTime.AddHours(timeToAdd);
