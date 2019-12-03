@@ -58,22 +58,34 @@ namespace DAB_Assignment_3.Services
             
             foreach (var u in usersList)
             {
-                var c1 = new Circle(u.Name+"_C1",u.Id);
+                var c1 = new Circle(u.Name+"_C1", u.Id);
                 var c2 = new Circle(u.Name + "_C2", u.Id);
                 var c3 = new Circle(u.Name + "_C3", u.Id);
                 foreach (var un in usersList.Where(un => un != u))
                 {
-                    int random = rand.Next(3);
+                    var random = rand.Next(3);
                     if (random == 0)
                         c1.UserIds.Add(un.Id);
-                    if (random == 1)
+                    else if (random == 1)
                         c2.UserIds.Add(un.Id);
-                    if (random == 2)
-                        c3.UserIds.Add(un.Id);
+                    else if (random == 2) c3.UserIds.Add(un.Id);
                 }
                 circles.InsertOne(c1);
                 circles.InsertOne(c2);
                 circles.InsertOne(c3);
+
+                var c1d = circles.Find<Circle>(c => c.Name == u.Name + "_C1").FirstOrDefault();
+                var c2d = circles.Find<Circle>(c => c.Name == u.Name + "_C2").FirstOrDefault();
+                var c3d = circles.Find<Circle>(c => c.Name == u.Name + "_C3").FirstOrDefault();
+
+                var updateCircle1Id = Builders<User>.Update.AddToSet(u => u.CircleId, c1d.CircleId);
+                var updateCircle2Id = Builders<User>.Update.AddToSet(u => u.CircleId, c2d.CircleId);
+                var updateCircle3Id = Builders<User>.Update.AddToSet(u => u.CircleId, c3d.CircleId);
+
+                users.FindOneAndUpdate(us => us.Id == u.Id, updateCircle1Id);
+                users.FindOneAndUpdate(us => us.Id == u.Id, updateCircle2Id);
+                users.FindOneAndUpdate(us => us.Id == u.Id, updateCircle3Id);
+
             }
             #endregion
 
