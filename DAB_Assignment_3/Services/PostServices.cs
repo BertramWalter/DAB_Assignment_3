@@ -94,15 +94,14 @@ namespace DAB_Assignment_3.Services
             Console.WriteLine();
             // ===================== //
 
+            _posts.InsertOne(post);
+
             if (post.IsPublic == true)
             {
                 foreach (var id in user.BlockId)
                 {
                     var updateBlockedAllowedUserId = Builders<Post>.Update.AddToSet(post => post.BlockedAllowedUserId, id);
                     _posts.FindOneAndUpdate(post => post.AuthorId == user.Id, updateBlockedAllowedUserId);
-
-
-                    //post.BlockedAllowedUserId.Add(id);
 
                 }
 
@@ -133,7 +132,6 @@ namespace DAB_Assignment_3.Services
                     {
                         var updateBlockedAllowedUserId = Builders<Post>.Update.AddToSet(post => post.BlockedAllowedUserId, circleIdToInclude);
                         _posts.FindOneAndUpdate(post => post.AuthorId == user.Id, updateBlockedAllowedUserId);
-                        //post.BlockedAllowedUserId.Add(circleIdToInclude);
                     }
                     else
                     {
@@ -165,22 +163,6 @@ namespace DAB_Assignment_3.Services
                 Console.WriteLine("User doesn't exist");
                 return;
             }
-
-
-
-
-            //try
-            //{
-            //    var updateFollowId = Builders<User>.Update.AddToSet(user => user.FollowId, userToFollow);
-            //    _users.FindOneAndUpdate(user => user.Id == userid, updateFollowId);
-            //}
-            //catch (Exception)
-            //{
-            //    Console.WriteLine("User doesn't exist");
-            //    return;
-            //}
-
-            _posts.InsertOne(post);
         }
 
         public void CreateTextPost(User user)

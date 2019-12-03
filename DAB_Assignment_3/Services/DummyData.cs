@@ -114,12 +114,21 @@ namespace DAB_Assignment_3.Services
                 textPost.Text = $"My name is {textPost.AuthorName} and my ID is {textPost.AuthorId}. This is a {publicPost} TEXTPOST.";
                 dataPost.Data = $"Audio: 'My name is {dataPost.AuthorName} and my ID is {dataPost.AuthorId}. This is a {publicPost} DATAPOST.'";
 
+                //Overwrite DateTime
+                textPost.DateTime.AddHours(timeToAdd);
+                dataPost.DateTime.AddHours(timeToAdd);
+                timeToAdd++;
+
+                posts.InsertOne(textPost);
+                posts.InsertOne(dataPost);
+
                 if (randPublicPost == true)
                 {
                     foreach (var id in user.BlockId)
                     {
                         var updateBlockedAllowedUserId = Builders<Post>.Update.AddToSet(post => post.BlockedAllowedUserId, id);
                         posts.FindOneAndUpdate(post => post.AuthorId == user.Id, updateBlockedAllowedUserId);
+
                     }
                 }
                 else
@@ -156,13 +165,7 @@ namespace DAB_Assignment_3.Services
                 }
 
 
-                //Overwrite DateTime
-                textPost.DateTime.AddHours(timeToAdd);
-                dataPost.DateTime.AddHours(timeToAdd);
-                timeToAdd++;
-
-                posts.InsertOne(textPost);
-                posts.InsertOne(dataPost);
+                
 
                 //Insert comments to post
                 InsertCommentDummyData(database,textPost,dataPost);
