@@ -67,7 +67,7 @@ namespace DAB_Assignment_3.Services
 
             if (userWhoBlocks == null)
             {
-                Console.WriteLine($"UserID {userid} doesn't exist or doesn't block ID: {blockedUserId}");
+                // Console.WriteLine($"UserID {userid} doesn't exist or doesn't block ID: {blockedUserId}");
                 return;
             }
 
@@ -97,7 +97,7 @@ namespace DAB_Assignment_3.Services
 
             if (user == null)
             {
-                Console.WriteLine($"UserID {userid} doesn't exist or doesn't follow ID: {userToUnfollow}");
+                //Console.WriteLine($"UserID {userid} doesn't exist or doesn't follow ID: {userToUnfollow}");
                 return;
             }
 
@@ -196,7 +196,7 @@ namespace DAB_Assignment_3.Services
             
             var wall = _posts.Find(postsOnWall =>
                 postsOnWall.AuthorId == user.Id)
-            .SortByDescending(post => post.PostId).Limit(5).ToList();
+            .SortBy(post => post.DateTime).Limit(5).ToList();
 
             if (wall.Count == 0)
             {
