@@ -245,12 +245,12 @@ namespace DAB_Assignment_3.Services
                 if (wp is DataPost)
                 {
                     DataPost dp = (DataPost)wp;
-                    Console.WriteLine($"Feed: {dp.Data}");
+                    Console.WriteLine($"Wall: {dp.Data}");
                 }
                 else if (wp is TextPost)
                 {
                     TextPost tp = (TextPost)wp;
-                    Console.WriteLine($"Feed: {tp.Text}");
+                    Console.WriteLine($"Wall: {tp.Text}");
                 }
                 //Console.WriteLine($"{wp} test");
 
