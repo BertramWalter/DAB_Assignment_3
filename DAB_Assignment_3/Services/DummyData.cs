@@ -87,7 +87,6 @@ namespace DAB_Assignment_3.Services
             //Dummy Posts
             foreach (var user in usersList)
             {
-
                 TextPost textPost = new TextPost();
                 DataPost dataPost = new DataPost();
 
@@ -136,6 +135,7 @@ namespace DAB_Assignment_3.Services
                 posts.InsertOne(textPost);
                 posts.InsertOne(dataPost);
 
+                //Insert comments to post
                 InsertCommentDummyData(database,textPost,dataPost);
             }
 

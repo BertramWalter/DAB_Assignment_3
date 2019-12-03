@@ -188,15 +188,14 @@ namespace DAB_Assignment_3.Services
                 else if (f is TextPost)
                 {
                     TextPost tp = (TextPost) f;
-                    Console.WriteLine($"Feed: {tp.Text}");
-                }
+                    Console.WriteLine($"Feed: {tp.Text}");                }
 
                 //Console.WriteLine($"Feed: {f}");
 
                 var comments = _comments.Find(comment =>
                         comment.PostId == f.PostId)
                     .SortByDescending(comment => comment.PostId).Limit(5).ToList();
-                
+
                 foreach (var c in comments)
                 {
                     Console.WriteLine($"Comment: {c.CommentString} at {c.DateTime}");

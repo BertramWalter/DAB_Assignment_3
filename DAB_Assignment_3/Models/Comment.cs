@@ -15,11 +15,13 @@ namespace DAB_Assignment_3.Models
             AuthorName = authorname;
             CommentString = commentstring;
             this.DateTime = DateTime;
-
         }
 
-        [BsonElement("PostId")]
+        [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
+        public string CommentId { get; set; }
+
+        [BsonElement("PostId")]
         public string PostId { get; set; }
 
         [BsonElement("AuthorId")]

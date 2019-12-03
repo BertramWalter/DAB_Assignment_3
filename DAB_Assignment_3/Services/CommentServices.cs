@@ -29,10 +29,11 @@ namespace DAB_Assignment_3.Services
         public void CreateComment(string post_id, string userId, string c)
         {
             var user = _users.Find(x => x.Id == userId).FirstOrDefault();
-            /*if (user.BlockId == null)
+            if (user == null)
             {
-                return false;
-            }*/
+                Console.WriteLine("User does not exist");
+                return;
+            }
 
             //if no posts available
             var post = _post.Find(x => x.PostId == post_id ).FirstOrDefault();
@@ -68,22 +69,7 @@ namespace DAB_Assignment_3.Services
                         Console.WriteLine("UserID is not a part of any of the user circles.");
                     }
                 }
-            }
-
-            //post_id = post.PostId;
-            
-            //   user = _users;
-            //DateTime comment.DateTime = datetime;
-            //comment.DateTime = DateTime.Parse(Date);
-            //Console.WriteLine("Type your comment: ");
-            //string commentstring = Console.ReadLine();
-            //comment.AuthorName = post.AuthorName;
-            //comment.CommentString = commentstring;
-            //comment.AuthorId = post.AuthorId;
-            //comment.PostId = post_id;
-            //this.DateTime = Console.WriteLine("{Date}");
-            //Comment postcomment = new Comment(postid, authorid, authorname, commentstring, DateTime);
-            
+            }         
 
         }
 
