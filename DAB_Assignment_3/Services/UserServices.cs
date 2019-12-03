@@ -196,11 +196,17 @@ namespace DAB_Assignment_3.Services
                 var comments = _comments.Find(comment =>
                         comment.PostId == f.PostId)
                     .SortByDescending(comment => comment.PostId).Limit(5).ToList();
-                
+
+                if (comments == null)
+                {
+                    Console.WriteLine("There's no comment to the post on the feed");
+                    return;
+                }
                 foreach (var c in comments)
                 {
                     Console.WriteLine($"Comment: {c.CommentString} at {c.DateTime}");
                 }
+            
             }
             ////////////////////////////////////////////////////////////////////////////////////////
         }
@@ -245,18 +251,25 @@ namespace DAB_Assignment_3.Services
                 if (wp is DataPost)
                 {
                     DataPost dp = (DataPost)wp;
-                    Console.WriteLine($"Feed: {dp.Data}");
+                    Console.WriteLine($"Wall: {dp.Data}");
                 }
                 else if (wp is TextPost)
                 {
                     TextPost tp = (TextPost)wp;
-                    Console.WriteLine($"Feed: {tp.Text}");
+                    Console.WriteLine($"Wall: {tp.Text}");
                 }
                 //Console.WriteLine($"{wp} test");
 
                 var comments = _comments.Find(comment =>
                         comment.PostId == wp.PostId)
                     .SortByDescending(comment => comment.PostId).Limit(5).ToList();
+
+
+                if (comments == null)
+                {
+                    Console.WriteLine("There's no comment to the post on the wall");
+                    return;
+                }
 
                 foreach (var c in comments)
                 {

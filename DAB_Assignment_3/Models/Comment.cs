@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using MongoDB.Bson;
 
 namespace DAB_Assignment_3.Models
 {
@@ -16,6 +17,9 @@ namespace DAB_Assignment_3.Models
             this.DateTime = DateTime;
 
         }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string CommentId { get; set; }
 
         [BsonElement("PostId")]
         public string PostId { get; set; }

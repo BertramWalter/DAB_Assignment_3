@@ -30,6 +30,11 @@ namespace DAB_Assignment_3.Models
         [BsonElement("IsPublic")]
         public bool IsPublic { get; set; }
 
+
+        //If IsPublic == true
+        // -- > blockedList
+        //If IsPublic == false
+        // -- > AllowedList
         [BsonElement("BlockedAllowedUserId")]
         public List<string> BlockedAllowedUserId { get; set; }
     }
