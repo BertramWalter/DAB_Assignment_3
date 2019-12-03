@@ -39,7 +39,12 @@ namespace DAB_Assignment_3.Services
             }
 
             if (!c.UserIds.Contains(userId))
-                c.UserIds.Add(userId);
+            {
+                var updateUserId = Builders<Circle>.Update.AddToSet(circle => circle.UserIds, userId);
+                _circles.FindOneAndUpdate(circle => circle.CircleId == circleId, updateUserId);
+                //c.UserIds.Add(userId);
+            }
+                
             
             
             Console.WriteLine($"User with id {userId} added to {c.Name}");
