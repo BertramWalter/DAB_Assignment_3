@@ -87,9 +87,10 @@ namespace DAB_Assignment_3.Services
                 users.FindOneAndUpdate(us => us.Id == u.Id, updateCircle3Id);
 
             }
+            usersList = users.Find(u => true).ToList();
             #endregion
 
-           
+
             #region Post
             int timeToAdd = 0;
             //Dummy Posts
@@ -112,7 +113,7 @@ namespace DAB_Assignment_3.Services
                 string publicPost = randPublicPost == true ? "public" : "private";
 
                 textPost.Text = $"My name is {textPost.AuthorName} and my ID is {textPost.AuthorId}. This is a {publicPost} TEXTPOST.";
-                dataPost.Data = $"Audio: 'My name is {dataPost.AuthorName} and my ID is {dataPost.AuthorId}. This is a {publicPost} DATAPOST.'";
+                dataPost.UrlToData = $"Audio: 'My name is {dataPost.AuthorName} and my ID is {dataPost.AuthorId}. This is a {publicPost} DATAPOST.'";
 
                 //Overwrite DateTime
                 textPost.DateTime.AddHours(timeToAdd);

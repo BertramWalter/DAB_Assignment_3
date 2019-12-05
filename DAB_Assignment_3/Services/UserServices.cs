@@ -146,7 +146,7 @@ namespace DAB_Assignment_3.Services
                 if (f is DataPost)
                 {
                     DataPost dp = (DataPost) f;
-                    Console.WriteLine($"Feed: {dp.Data}");
+                    Console.WriteLine($"Feed: {dp.UrlToData}");
                 }
                 else if (f is TextPost)
                 {
@@ -212,7 +212,7 @@ namespace DAB_Assignment_3.Services
                 if (wp is DataPost)
                 {
                     DataPost dp = (DataPost)wp;
-                    Console.WriteLine($"Wall: {dp.Data}");
+                    Console.WriteLine($"Wall: {dp.UrlToData}");
                 }
                 else if (wp is TextPost)
                 {

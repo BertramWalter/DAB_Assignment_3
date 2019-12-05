@@ -90,7 +90,7 @@ namespace DAB_Assignment_3.Services
 
             //Write data to post//
             Console.WriteLine("Write data, exit with 'Enter': ");
-            post.Data = Console.ReadLine();
+            post.UrlToData = Console.ReadLine();
             Console.WriteLine();
             // ===================== //
 
