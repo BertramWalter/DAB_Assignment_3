@@ -114,12 +114,21 @@ namespace DAB_Assignment_3.Services
                 textPost.Text = $"My name is {textPost.AuthorName} and my ID is {textPost.AuthorId}. This is a {publicPost} TEXTPOST.";
                 dataPost.Data = $"Audio: 'My name is {dataPost.AuthorName} and my ID is {dataPost.AuthorId}. This is a {publicPost} DATAPOST.'";
 
+                //Overwrite DateTime
+                textPost.DateTime.AddHours(timeToAdd);
+                dataPost.DateTime.AddHours(timeToAdd);
+                timeToAdd++;
+
+                posts.InsertOne(textPost);
+                posts.InsertOne(dataPost);
+
                 if (randPublicPost == true)
                 {
                     foreach (var id in user.BlockId)
                     {
-                        textPost.BlockedAllowedUserId.Add(id);
-                        dataPost.BlockedAllowedUserId.Add(id);
+                        var updateBlockedAllowedUserId = Builders<Post>.Update.AddToSet(post => post.BlockedAllowedUserId, id);
+                        posts.FindOneAndUpdate(post => post.AuthorId == user.Id, updateBlockedAllowedUserId);
+
                     }
                 }
                 else
@@ -127,11 +136,11 @@ namespace DAB_Assignment_3.Services
                     for (int i = 0; i < user.CircleId.Count; i++)
                     {
                         var c = circles.Find<Circle>(c => c.CircleId == user.CircleId[i]).FirstOrDefault();
-                        textPost.BlockedAllowedUserId = c.UserIds;
-                        dataPost.BlockedAllowedUserId = c.UserIds;
+
+                        var updateBlockedAllowedUserId = Builders<Post>.Update.AddToSet(post => post.BlockedAllowedUserId, c.CircleId);
+                        posts.FindOneAndUpdate(post => post.AuthorId == user.Id, updateBlockedAllowedUserId);
                     }
                 }
-
 
                 try
                 {
@@ -155,28 +164,8 @@ namespace DAB_Assignment_3.Services
                     return;
                 }
 
-                //try
-                //{
-                //    var updateFollowId = Builders<User>.Update.AddToSet(user => user.FollowId, userToFollow);
-                //    _users.FindOneAndUpdate(user => user.Id == userid, updateFollowId);
-                //}
-                //catch (Exception)
-                //{
-                //    Console.WriteLine("User doesn't exist");
-                //    return;
-                //}
 
-
-                //user.UserPostsId.Add(textPost.PostId);
-                //user.UserPostsId.Add(dataPost.PostId);
-
-                //Overwrite DateTime
-                textPost.DateTime.AddHours(timeToAdd);
-                dataPost.DateTime.AddHours(timeToAdd);
-                timeToAdd++;
-
-                posts.InsertOne(textPost);
-                posts.InsertOne(dataPost);
+                
 
                 //Insert comments to post
                 InsertCommentDummyData(database,textPost,dataPost);

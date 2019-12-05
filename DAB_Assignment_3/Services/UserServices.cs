@@ -67,7 +67,6 @@ namespace DAB_Assignment_3.Services
 
             if (userWhoBlocks == null)
             {
-                // Console.WriteLine($"UserID {userid} doesn't exist or doesn't block ID: {blockedUserId}");
                 return;
             }
 
@@ -97,7 +96,6 @@ namespace DAB_Assignment_3.Services
 
             if (user == null)
             {
-                //Console.WriteLine($"UserID {userid} doesn't exist or doesn't follow ID: {userToUnfollow}");
                 return;
             }
 
@@ -221,7 +219,6 @@ namespace DAB_Assignment_3.Services
                     TextPost tp = (TextPost)wp;
                     Console.WriteLine($"Wall: {tp.Text}");
                 }
-                //Console.WriteLine($"{wp} test");
 
                 var comments = _comments.Find(comment =>
                         comment.PostId == wp.PostId)
